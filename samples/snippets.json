@@ -8,6 +8,26 @@
       "title": "🔁 Scheduler with Callbacks",
       "language": "csharp",
       "code": "// Callbacks example\nvoid NotifyServiceStarted(DateTime t) => Console.WriteLine($\"✅ Started at {t}\");"
+    },
+    "basicUsageWithLifeCycleCallbacks":{
+      "title": "🧑‍💻 Lifecycle Callbacks",
+      "language": "csharp",
+      "code": "private ISchedulerEngine _scheduler;
+
+void RunTask() => Console.WriteLine("Running scheduled task...");
+
+void NotifyServiceStarted(DateTime t) => Console.WriteLine($"✅ Started at {t}");
+void NotifyServiceCompleted(DateTime t) => Console.WriteLine($"✅ Completed at {t}");
+void NotifyServiceSkipped(string reason, DateTime t) => Console.WriteLine($"⚠️ Skipped — {reason}");
+void NotifyServiceFailed(Exception ex, DateTime t) => Console.WriteLine($"❌ Failed — {ex.Message}");
+
+_scheduler = new SchedulerEngine(
+    RunTask,
+    onTaskStarted: NotifyServiceStarted,
+    onTaskCompleted: NotifyServiceCompleted,
+    onTaskSkipped: NotifyServiceSkipped,
+    onTaskFailed: NotifyServiceFailed
+);"
     }
  }
   
