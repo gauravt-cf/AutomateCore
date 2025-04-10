@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       snippet:
-        description: 'JSON string of the new snippet (must be valid JSON object)'
+        description: 'JSON string of the new snippet (must be a valid flat JSON object)'
         required: true
 
 jobs:
@@ -12,26 +12,42 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repo
+    - name: 🛎️ Checkout repo
       uses: actions/checkout@v4
 
-    - name: Install jq
-      run: sudo apt-get install jq
+    - name: 📦 Install jq
+      run: sudo apt-get install -y jq
 
-    - name: Merge new snippet into snippets.json
+    - name: 🧩 Save input snippet to temp file
       run: |
-        printf '%s' "${{ github.event.inputs.snippet }}" > new-snippet.json
+        echo "${{ github.event.inputs.snippet }}" > new-snippet.json
+        echo "✅ New snippet written to file:"
+        cat new-snippet.json
+
+    - name: 🧠 Prepare snippets.json if not present
+      run: |
         if [ ! -f samples/snippets.json ]; then
           echo "{}" > samples/snippets.json
+          echo "✅ Created empty snippets.json"
         fi
+
+    - name: 🔀 Merge new snippet with existing
+      run: |
         jq -s '.[0] * .[1]' samples/snippets.json new-snippet.json > merged.json
         mv merged.json samples/snippets.json
+        echo "✅ snippets.json updated"
+        cat samples/snippets.json
 
-
-    - name: Commit and push changes
+    - name: 🚀 Commit and push changes
       run: |
         git config user.name "github-actions[bot]"
         git config user.email "github-actions[bot]@users.noreply.github.com"
-        git add samples/snippets.json
-        git commit -m "📦 Updated snippets.json via workflow"
-        git push origin main
+
+        if git diff --quiet; then
+          echo "🟡 No changes to commit."
+        else
+          git add samples/snippets.json
+          git commit -m "📦 Updated snippets.json via workflow"
+          git push origin main
+          echo "✅ Changes pushed!"
+        fi
