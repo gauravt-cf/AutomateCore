@@ -2,7 +2,7 @@
     "basicUsage": {
       "title": "🚀 Basic Scheduler Usage",
       "language": "csharp",
-      "code": "var scheduler = new SchedulerEngine(() => Console.WriteLine(\"Hello World\"));\nscheduler.Start();"
+      "code": "using System;\nusing AutomateCore;\n\nclass Program\n{\n    private ISchedulerEngine _scheduler;\n    static void Main()\n    {\n        // Core task logic\n        void RunTask() => Console.WriteLine($\"Task executed at {DateTime.Now}\");\n\n        // Initialize and start the scheduler\n        _scheduler = new SchedulerEngine(RunTask);\n        scheduler.Start();\n\n        Console.WriteLine(\"Scheduler started. Press any key to exit...\");\n        Console.ReadKey();\n\n        scheduler.Stop();\n    }\n}"
     },
     "withCallbacks": {
       "title": "🔁 Scheduler with Callbacks",
@@ -12,22 +12,40 @@
     "basicUsageWithLifeCycleCallbacks":{
       "title": "🧑‍💻 Lifecycle Callbacks",
       "language": "csharp",
-      "code": "private ISchedulerEngine _scheduler;
-
-void RunTask() => Console.WriteLine("Running scheduled task...");
-
-void NotifyServiceStarted(DateTime t) => Console.WriteLine($"✅ Started at {t}");
-void NotifyServiceCompleted(DateTime t) => Console.WriteLine($"✅ Completed at {t}");
-void NotifyServiceSkipped(string reason, DateTime t) => Console.WriteLine($"⚠️ Skipped — {reason}");
-void NotifyServiceFailed(Exception ex, DateTime t) => Console.WriteLine($"❌ Failed — {ex.Message}");
-
-_scheduler = new SchedulerEngine(
-    RunTask,
-    onTaskStarted: NotifyServiceStarted,
-    onTaskCompleted: NotifyServiceCompleted,
-    onTaskSkipped: NotifyServiceSkipped,
-    onTaskFailed: NotifyServiceFailed
-);"
+      "code": "using System;\
+using AutomateCore;\
+class Program\
+{\
+    private static ISchedulerEngine _scheduler;\
+    static void Main(string[] args)\
+    {\
+        Console.WriteLine(\"🚀 AutomateCore Scheduler is starting...\");\
+        // Define the job to be scheduled\
+        void RunTask()\
+        {\
+            Console.WriteLine($\"⏰ Task executed at {DateTime.Now}\");\
+        }\
+        // Lifecycle callbacks\
+        void NotifyStarted(DateTime t) => Console.WriteLine($\"✅ Task started at {t}\");\
+        void NotifyCompleted(DateTime t) => Console.WriteLine($\"✅ Task completed at {t}\");\
+        void NotifySkipped(string reason, DateTime t) => Console.WriteLine($\"⚠️ Task skipped at {t} — Reason: {reason}\");\
+        void NotifyFailed(Exception ex, DateTime t) => Console.WriteLine($\"❌ Task failed at {t} — {ex.Message}\");\
+        // Initialize the scheduler\
+        _scheduler = new SchedulerEngine(\
+            RunTask,\
+            onTaskStarted: NotifyStarted,\
+            onTaskCompleted: NotifyCompleted,\
+            onTaskSkipped: NotifySkipped,\
+            onTaskFailed: NotifyFailed\
+        );\
+        // Start scheduling (blocking call)\
+        _scheduler.Start();\
+        Console.WriteLine(\"⛔ Press any key to exit...\");\
+        Console.ReadKey();\
+        _scheduler.Stop();\
+    }\
+}\
+"
     }
  }
   
