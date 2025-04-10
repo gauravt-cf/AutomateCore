@@ -1,0 +1,36 @@
+name: Update Snippet JSON
+
+on:
+  workflow_dispatch:
+    inputs:
+      snippet:
+        description: 'JSON string of the new snippet (must be valid JSON object)'
+        required: true
+
+jobs:
+  update-snippet:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v4
+
+    - name: Install jq
+      run: sudo apt-get install jq
+
+    - name: Merge new snippet into snippets.json
+      run: |
+        echo "${{ github.event.inputs.snippet }}" > new-snippet.json
+        if [ ! -f samples/snippets.json ]; then
+          echo "{}" > samples/snippets.json
+        fi
+        jq -s '.[0] * .[1]' samples/snippets.json new-snippet.json > merged.json
+        mv merged.json samples/snippets.json
+
+    - name: Commit and push changes
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        git add samples/snippets.json
+        git commit -m "📦 Updated snippets.json via workflow"
+        git push origin main
