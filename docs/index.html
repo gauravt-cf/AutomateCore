@@ -2,81 +2,89 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AutomateCore Scheduler</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(120deg, #f0f4ff, #ffffff);
+    }
+    .gradient-btn {
+      background: linear-gradient(to right, #3b82f6, #06b6d4);
+    }
+  </style>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans">
+<body class="text-gray-800 font-sans">
 
   <!-- Header -->
-  <header class="bg-blue-700 text-white p-6 shadow-md">
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-2">
+  <header class="bg-gradient-to-r from-blue-800 to-cyan-600 text-white p-6 shadow-lg">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
       <div class="flex items-center gap-4">
-        <h1 class="text-2xl font-bold">AutomateCore Scheduler</h1>
+        <h1 class="text-3xl font-bold tracking-wide">AutomateCore Scheduler</h1>
         <a href="https://github.com/gauravt-cf/AutomateCore" target="_blank">
           <img src="https://img.shields.io/github/stars/gauravt-cf/AutomateCore?style=social" alt="GitHub stars" />
         </a>
       </div>
       <a href="https://github.com/gauravt-cf/AutomateCore" target="_blank"
-         class="bg-white text-blue-700 px-4 py-2 rounded hover:bg-blue-100 transition">
-        ⭐ View on GitHub
+         class="gradient-btn text-white px-5 py-2 rounded-full shadow hover:opacity-90 transition">
+        <i class="fab fa-github mr-2"></i>View on GitHub
       </a>
     </div>
   </header>
-  
 
   <!-- Hero -->
-  <section class="bg-white py-16 text-center">
+  <section class="text-center py-20 bg-white">
     <div class="max-w-4xl mx-auto">
-      <h2 class="text-4xl font-bold mb-4">Powerful .NET Windows Task Scheduler</h2>
-      <p class="text-lg text-gray-600 mb-6">Simple, lightweight, and configuration-driven scheduling engine.</p>
-      <a href="#get-started" class="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-500 transition">Get Started</a>
+      <h2 class="text-5xl font-extrabold mb-4 tracking-tight">Build Intelligent .NET Schedulers</h2>
+      <p class="text-xl text-gray-600 mb-6">Minimal setup, powerful configuration. Your background jobs, elevated.</p>
+      <a href="#get-started" class="gradient-btn px-8 py-3 text-white rounded-full text-lg font-medium shadow hover:scale-105 transition">🚀 Get Started</a>
     </div>
   </section>
 
   <!-- Features -->
-  <section class="py-16 bg-gray-100">
-    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-      <div>
-        <h3 class="text-xl font-semibold mb-2">⚙️ Config Driven</h3>
-        <p class="text-gray-600">Schedule logic with just XML. No need to write code for common patterns.</p>
+  <section class="py-20 bg-gray-100">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 text-center">
+      <div class="p-6 bg-white rounded-2xl shadow-md hover:shadow-lg transition">
+        <h3 class="text-2xl font-semibold mb-3">⚙️ Config Driven</h3>
+        <p class="text-gray-600">Use XML to manage schedules with ease—no code changes for common patterns.</p>
       </div>
-      <div>
-        <h3 class="text-xl font-semibold mb-2">📅 Rich Scheduling</h3>
-        <p class="text-gray-600">Hourly, Daily, Weekly, and advanced recurring options.</p>
+      <div class="p-6 bg-white rounded-2xl shadow-md hover:shadow-lg transition">
+        <h3 class="text-2xl font-semibold mb-3">📅 Flexible Scheduling</h3>
+        <p class="text-gray-600">Supports Daily, Weekly, Recurring, and Custom intervals out of the box.</p>
       </div>
-      <div>
-        <h3 class="text-xl font-semibold mb-2">🧪 Test Friendly</h3>
-        <p class="text-gray-600">Supports immediate execution for test scenarios.</p>
+      <div class="p-6 bg-white rounded-2xl shadow-md hover:shadow-lg transition">
+        <h3 class="text-2xl font-semibold mb-3">🧪 Testable</h3>
+        <p class="text-gray-600">Simulate task execution instantly to verify your schedules and logic.</p>
       </div>
     </div>
   </section>
 
   <!-- Getting Started -->
-  <section id="get-started" class="py-16 bg-white">
-    <div class="max-w-5xl mx-auto px-4">
-      <h2 class="text-3xl font-bold mb-6">🏁 Getting Started</h2>
-      <p class="mb-2 text-gray-700">Minimal code to start a scheduled task:</p>
-      <pre class="bg-gray-900 text-green-300 p-4 rounded overflow-x-auto text-sm">
-static void Main()
-{
-    var scheduler = new SchedulerEngine(() =>
-    {
-        Console.WriteLine("Scheduled task executed!");
-    });
+  <section id="get-started" class="py-20 bg-white">
+    <div class="max-w-5xl mx-auto px-6">
+      <h2 class="text-4xl font-bold mb-6">🏁 Getting Started</h2>
+      <p class="mb-4 text-gray-700">Kick off with a simple setup:</p>
+      <pre class="bg-gray-900 text-green-300 p-6 rounded-xl overflow-x-auto text-sm shadow-md">
+            static void Main()
+            {
+                var scheduler = new SchedulerEngine(() =>
+                {
+                    Console.WriteLine("Scheduled task executed!");
+                });
 
-    scheduler.Start();
-}
+                scheduler.Start();
+            }
       </pre>
     </div>
   </section>
 
-  <!-- Configuration Example -->
-  <section class="py-16 bg-gray-100">
-    <div class="max-w-5xl mx-auto px-4">
-      <h2 class="text-3xl font-bold mb-6">⚙️ Configuration</h2>
-      <p class="mb-2 text-gray-700">Add this section in your <code>App.config</code> or <code>Web.config</code>:</p>
-      <pre class="bg-gray-800 text-yellow-100 p-4 rounded overflow-x-auto text-sm">
+  <!-- Configuration -->
+  <section class="py-20 bg-gray-50">
+    <div class="max-w-5xl mx-auto px-6">
+      <h2 class="text-4xl font-bold mb-6">⚙️ XML Configuration</h2>
+      <p class="mb-4 text-gray-700">Add this to your <code>App.config</code> or <code>Web.config</code>:</p>
+      <pre class="bg-gray-800 text-yellow-100 p-6 rounded-xl overflow-x-auto text-sm shadow-md">
 &lt;configuration&gt;
   &lt;configSections&gt;
     &lt;section name="schedulerSettings" type="AutomateCore.Configuration.SchedulerConfigSection, AutomateCore" requirePermission="false" /&gt;
@@ -90,62 +98,60 @@ static void Main()
     </div>
   </section>
 
-  <!-- Schedule Types -->
-  <section class="py-16 bg-white">
-    <div class="max-w-5xl mx-auto px-4">
-      <h2 class="text-3xl font-bold mb-6">🗓️ Schedule Configuration Options</h2>
-      <table class="w-full table-auto text-left border border-gray-300">
-        <thead class="bg-gray-200">
-          <tr>
-            <th class="px-4 py-2">Attribute</th>
-            <th class="px-4 py-2">Description</th>
-          </tr>
-        </thead>
-        <tbody class="text-sm">
-          <tr><td class="border px-4 py-2">scheduleType</td><td class="border px-4 py-2">Immediate, Daily, Weekly, Monthly, etc.</td></tr>
-          <tr><td class="border px-4 py-2">enabled</td><td class="border px-4 py-2">true / false</td></tr>
-          <tr><td class="border px-4 py-2">hour</td><td class="border px-4 py-2">Hour for Daily/Weekly/Monthly schedules</td></tr>
-          <tr><td class="border px-4 py-2">minute</td><td class="border px-4 py-2">Minute for execution</td></tr>
-          <tr><td class="border px-4 py-2">dayOfWeek</td><td class="border px-4 py-2">Day(s) for Weekly</td></tr>
-          <tr><td class="border px-4 py-2">dayOfMonth</td><td class="border px-4 py-2">Day for Monthly</td></tr>
-        </tbody>
-      </table>
+  <!-- Schedule Options -->
+  <section class="py-20 bg-white">
+    <div class="max-w-5xl mx-auto px-6">
+      <h2 class="text-4xl font-bold mb-6">🗓️ Schedule Attributes</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left table-auto border border-gray-300">
+          <thead class="bg-gray-200">
+            <tr>
+              <th class="px-4 py-3">Attribute</th>
+              <th class="px-4 py-3">Description</th>
+            </tr>
+          </thead>
+          <tbody class="text-sm">
+            <tr><td class="border px-4 py-2">scheduleType</td><td class="border px-4 py-2">Immediate, Daily, Weekly, Monthly, etc.</td></tr>
+            <tr><td class="border px-4 py-2">enabled</td><td class="border px-4 py-2">true / false</td></tr>
+            <tr><td class="border px-4 py-2">hour</td><td class="border px-4 py-2">Hour value</td></tr>
+            <tr><td class="border px-4 py-2">minute</td><td class="border px-4 py-2">Minute value</td></tr>
+            <tr><td class="border px-4 py-2">dayOfWeek</td><td class="border px-4 py-2">Applicable for Weekly</td></tr>
+            <tr><td class="border px-4 py-2">dayOfMonth</td><td class="border px-4 py-2">Applicable for Monthly</td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </section>
 
-  <!-- Supported Types -->
-  <section class="py-16 bg-gray-100">
-    <div class="max-w-5xl mx-auto px-4">
-      <h2 class="text-3xl font-bold mb-6">🧠 Supported ScheduleType Values</h2>
-      <ul class="list-disc list-inside text-gray-700 space-y-1">
-        <li><strong>Immediate</strong> — Executes immediately on startup</li>
-        <li><strong>EveryXMinutes</strong> — 1, 2, 5, 10, 15, 30 minutes</li>
-        <li><strong>EveryXHours</strong> — 2, 4, 6 hours</li>
-        <li><strong>Hourly</strong> — At specified minute each hour</li>
-        <li><strong>Daily</strong>, <strong>Weekly</strong>, <strong>Monthly</strong></li>
-        <li><strong>TwiceDaily</strong>, <strong>Weekends</strong>, <strong>Quarterly</strong>, etc.</li>
+  <!-- Supported Schedule Types -->
+  <section class="py-20 bg-gray-50">
+    <div class="max-w-5xl mx-auto px-6">
+      <h2 class="text-4xl font-bold mb-6">🧠 Supported Schedule Types</h2>
+      <ul class="list-disc list-inside text-gray-700 space-y-2 text-base">
+        <li><strong>Immediate</strong> — Runs once on service start</li>
+        <li><strong>EveryXMinutes</strong> — Custom intervals like 5, 15, 30 mins</li>
+        <li><strong>EveryXHours</strong> — Run every 2, 4, 6 hours</li>
+        <li><strong>Hourly</strong> — Once per hour at a given minute</li>
+        <li><strong>Daily</strong>, <strong>Weekly</strong>, <strong>Monthly</strong> — Classic patterns</li>
+        <li><strong>TwiceDaily</strong>, <strong>Weekends</strong>, <strong>Quarterly</strong> — Extended options</li>
       </ul>
     </div>
   </section>
 
-  <!-- Usage -->
-  <section class="py-16 bg-white">
-    <div class="max-w-5xl mx-auto px-4">
-      <h2 class="text-3xl font-bold mb-6">🧑‍💻 Usage & Lifecycle Callbacks</h2>
-      <pre class="bg-gray-900 text-green-300 p-4 rounded overflow-x-auto text-sm">
-// Declare a field
+  <!-- Lifecycle Callbacks -->
+  <section class="py-20 bg-white">
+    <div class="max-w-5xl mx-auto px-6">
+      <h2 class="text-4xl font-bold mb-6">🧑‍💻 Lifecycle Callbacks</h2>
+      <pre class="bg-gray-900 text-green-300 p-6 rounded-xl overflow-x-auto text-sm shadow-md">
 private ISchedulerEngine _scheduler;
 
-// Main task
 void RunTask() => Console.WriteLine("Running scheduled task...");
 
-// Callbacks
 void NotifyServiceStarted(DateTime t) => Console.WriteLine($"✅ Started at {t}");
 void NotifyServiceCompleted(DateTime t) => Console.WriteLine($"✅ Completed at {t}");
-void NotifyServiceSkipped(string reason, DateTime t) => Console.WriteLine($"⚠️ Skipped at {t} — {reason}");
-void NotifyServiceFailed(Exception ex, DateTime t) => Console.WriteLine($"❌ Failed at {t} — {ex.Message}");
+void NotifyServiceSkipped(string reason, DateTime t) => Console.WriteLine($"⚠️ Skipped — {reason}");
+void NotifyServiceFailed(Exception ex, DateTime t) => Console.WriteLine($"❌ Failed — {ex.Message}");
 
-// Initialize
 _scheduler = new SchedulerEngine(
     RunTask,
     onTaskStarted: NotifyServiceStarted,
@@ -158,9 +164,10 @@ _scheduler = new SchedulerEngine(
   </section>
 
   <!-- Footer -->
-  <footer class="bg-blue-700 text-white py-6 text-center">
-    <p>&copy; 2025 AutomateCore Scheduler — Built with ❤️ for Windows services</p>
+  <footer class="bg-gradient-to-r from-blue-800 to-cyan-600 text-white py-8 text-center">
+    <p class="text-sm">&copy; 2025 AutomateCore Scheduler — Built with ❤️ for Windows services</p>
   </footer>
-
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <script src="scripts/jsGithub.js?v=1.02.2"></script>
 </body>
 </html>
