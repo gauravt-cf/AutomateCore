@@ -18,5 +18,34 @@
     "title": "⚙️ XML Configuration",
     "language": "xml",
     "code": "<configuration>\n  <configSections>\n    <section name=\"schedulerSettings\" type=\"AutomateCore.Configuration.SchedulerConfigSection, AutomateCore\" requirePermission=\"false\" />\n  </configSections>\n\n  <schedulerSettings>\n    <add scheduleType=\"Hourly\" enabled=\"true\" hour=\"0\" minute=\"0\" />\n  </schedulerSettings>\n</configuration>"
-  }
+  },
+  "xmlConfigurationAttributes": {
+  "title": "🧩 XML Configuration Attributes",
+  "attributes": [
+    {
+      "name": "scheduleType",
+      "description": "Immediate, Daily, Weekly, Monthly, etc."
+    },
+    {
+      "name": "enabled",
+      "description": "true / false"
+    },
+    {
+      "name": "hour",
+      "description": "Hour value"
+    },
+    {
+      "name": "minute",
+      "description": "Minute value"
+    },
+    {
+      "name": "dayOfWeek",
+      "description": "Applicable for Weekly"
+    },
+    {
+      "name": "dayOfMonth",
+      "description": "Applicable for Monthly"
+    }
+  ]
+ }
 }
