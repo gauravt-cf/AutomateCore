@@ -20,12 +20,13 @@ jobs:
 
     - name: Merge new snippet into snippets.json
       run: |
-        echo "${{ github.event.inputs.snippet }}" > new-snippet.json
+        printf '%s' "${{ github.event.inputs.snippet }}" > new-snippet.json
         if [ ! -f samples/snippets.json ]; then
           echo "{}" > samples/snippets.json
         fi
         jq -s '.[0] * .[1]' samples/snippets.json new-snippet.json > merged.json
         mv merged.json samples/snippets.json
+
 
     - name: Commit and push changes
       run: |
