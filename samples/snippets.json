@@ -1,0 +1,13 @@
+{
+    "basicUsage": {
+      "title": "🚀 Basic Scheduler Usage",
+      "language": "csharp",
+      "code": "var scheduler = new SchedulerEngine(() => Console.WriteLine(\"Hello World\"));\nscheduler.Start();"
+    },
+    "withCallbacks": {
+      "title": "🔁 Scheduler with Callbacks",
+      "language": "csharp",
+      "code": "// Callbacks example\nvoid NotifyServiceStarted(DateTime t) => Console.WriteLine($\"✅ Started at {t}\");"
+    }
+ }
+  

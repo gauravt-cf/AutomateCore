@@ -1,5 +1,5 @@
 $(function(){
-    const fileUrl = 'https://api.github.com/repos/gauravt-cf/AutomateCore/contents/AutomateCore/Sample/Program.cs';
+    const fileUrl = 'https://api.github.com/repos/gauravt-cf/AutomateCore/contents/samples/Program.cs';
 
   fetch(fileUrl)
     .then(response => response.json())
