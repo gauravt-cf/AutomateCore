@@ -70,7 +70,7 @@ class AutomateCoreUIComponents {
 
                                 <!-- Navigation Menu -->
                                 <nav class="flex gap-4">
-                                    <a href="/downloads" class="text-black text-sm font-medium hover:underline hover:text-cyan-200 transition">
+                                    <a href="downloads" class="text-black text-sm font-medium hover:underline hover:text-cyan-200 transition">
                                         Downloads
                                     </a>
                                     <!-- Add more links here if needed -->
