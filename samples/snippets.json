@@ -19,6 +19,11 @@
     "language": "xml",
     "code": "<configuration>\n  <configSections>\n    <section name=\"schedulerSettings\" type=\"AutomateCore.Configuration.SchedulerConfigSection, AutomateCore\" requirePermission=\"false\" />\n  </configSections>\n\n  <schedulerSettings>\n    <add scheduleType=\"Hourly\" enabled=\"true\" hour=\"0\" minute=\"0\" />\n  </schedulerSettings>\n</configuration>"
   },
+ "DryRunModeSettingExample": {
+  "title": "Dry Run Mode Configuration Example",
+  "language": "xml",
+  "code": "<schedulerSettings>\n\t<add scheduleType=\"Every2Hours\" enabled=\"true\" hour=\"0\" minute=\"0\" dayOfWeek=\"\" dayOfMonth=\"0\" dryRun=\"true\"/>\n</schedulerSettings>"
+},
   "xmlConfigurationAttributes": {
   "title": "🧩 XML Configuration Attributes",
   "attributes": [
