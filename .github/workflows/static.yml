@@ -54,7 +54,14 @@ jobs:
             rm -rf website/scripts
             mv website/scripts-obfuscated website/scripts
           fi
-
+          
+      - name: 🔧 Install HTML Minifier
+          run: npm install -g html-minifier-terser
+        
+      - name: ✂️ Minify HTML Files
+          run: |
+            find website/ -name '*.html' -exec html-minifier-terser --collapse-whitespace --remove-comments --minify-css true --minify-js true -o {} {} \;
+        
       - name: ⚙️ Setup GitHub Pages
         uses: actions/configure-pages@v5
 
@@ -65,7 +72,12 @@ jobs:
                 --exclude='downloads' \
                 --exclude='${{ github.event.inputs.target_env }}' \
                 website/ website/${{ github.event.inputs.target_env }}/
-
+                
+      - name: 🧾 Backup Originals
+                run: |
+                  mkdir -p website/_originals
+                  cp -r website/*.js website/*.css website/*.html website/_originals/ || true
+              
       - name: 📄 Upload Static Files
         uses: actions/upload-pages-artifact@v3
         with:
