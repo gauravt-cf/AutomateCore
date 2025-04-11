@@ -10,6 +10,11 @@ $(function () {
     $('automate-core-footer').html(AutomateCoreUI.getMainFooter());
     $('current-year').html(currentYear);
 });
+function goToHomePage() {
+    const pathParts = window.location.pathname.split("/");
+    const basePath = pathParts[1]; // For /my-site/...
+    window.location.href = `/${basePath}/index.html`;
+}
 
 class AutomateCoreUIComponents {
     constructor() {
@@ -25,7 +30,7 @@ class AutomateCoreUIComponents {
                             <div class="flex items-center gap-4">
                             
                             <!-- Logo with Glassmorphism -->
-                            <div class="backdrop-blur-sm bg-white/10 p-2 rounded-full shadow-md hover:shadow-white/30 transition duration-300" onclick="window.location.href='/'" style="cursor: pointer;">
+                            <div class="backdrop-blur-sm bg-white/10 p-2 rounded-full shadow-md hover:shadow-white/30 transition duration-300" onclick="goToHomePage()" style="cursor: pointer;">
                                 <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" stroke-width="2"
                                 viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round"

@@ -1,4 +1,4 @@
-# 🚀 GitHub Actions: Deploy static content from 'docs/' to GitHub Pages
+# 🚀 GitHub Actions: Deploy static content from 'website/' to GitHub Pages
 name: Deploy to GitHub Pages
 
 on:
@@ -6,40 +6,58 @@ on:
   push:
     branches: ["main"]
 
-  # Allow manual trigger from GitHub UI
+  # Allow manual trigger from GitHub UI with environment input
   workflow_dispatch:
+    inputs:
+      target_env:
+        description: 'Select environment'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+          - development
+          - staging
+          - production
 
 # Set token permissions for deploying to Pages
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: read         # Allows reading repository content (for checkout)
+  pages: write           # Allows publishing to GitHub Pages
+  id-token: write        # Required for GitHub Pages OIDC deployment
 
 # Ensure only one deployment runs at a time
 concurrency:
-  group: "pages"
+  group: "pages-${{ github.event.inputs.target_env || 'staging' }}"  # Separate concurrency per environment
   cancel-in-progress: false
 
 jobs:
   deploy:
-    name: 📦 Deploy to GitHub Pages
+    name: 📦 Deploy to GitHub Pages (${{ github.event.inputs.target_env || 'staging' }})
     runs-on: ubuntu-latest
     environment:
-      name: github-pages
+      name: ${{ github.event.inputs.target_env || 'staging' }}  # Dynamic environment name
       url: ${{ steps.deploy.outputs.page_url }}
 
     steps:
       - name: 🔄 Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4     # Checkout the latest code from the repo
 
       - name: ⚙️ Setup GitHub Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v5  # Set up GitHub Pages for deployment
 
-      - name: 📤 Upload Static Files
-        uses: actions/upload-pages-artifact@v3
+      - name: 🏗️ Build Environment Folder
+        run: |
+          mkdir -p website/${{ github.event.inputs.target_env }}
+          cp -r website/* website/${{ github.event.inputs.target_env }}/
+
+      - name: 📄 Upload Static Files
+        uses: actions/upload-pages-artifact@v3  # Upload files to be deployed
         with:
-          path: './website'
+          path: './website'           # Folder containing static site content
 
       - name: 🚀 Deploy to GitHub Pages
         id: deploy
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v4  # Actual deployment step
+
+      - name: ✅ Deployment Complete
+        run: echo "Deployment to ${{ github.event.inputs.target_env || 'staging' }} complete at ${{ steps.deploy.outputs.page_url }}"
