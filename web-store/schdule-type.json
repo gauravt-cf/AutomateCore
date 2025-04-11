@@ -1,107 +1,128 @@
 [
-    {
-        "value": "Immediate",
-        "label": "Immediate",
-        "description": "Executes as soon as the application starts"
-    },
-    {
-        "value": "EveryMinute",
-        "label": "EveryMinute",
-        "description": "Executes once every 1 minute"
-    },
-    {
-        "value": "Every2Minutes",
-        "label": "Every2Minutes",
-        "description": "Executes once every 2 minutes"
-    },
-    {
-        "value": "Every5Minutes",
-        "label": "Every5Minutes",
-        "description": "Executes once every 5 minutes"
-    },
-    {
-        "value": "Every10Minutes",
-        "label": "Every10Minutes",
-        "description": "Executes once every 10 minutes"
-    },
-    {
-        "value": "Every15Minutes",
-        "label": "Every15Minutes",
-        "description": "Executes once every 15 minutes"
-    },
-    {
-        "value": "Every30Minutes",
-        "label": "Every30Minutes",
-        "description": "Executes once every 30 minutes"
-    },
-    {
-        "value": "Every2Hours",
-        "label": "Every2Hours",
-        "description": "Executes once every 2 hours"
-    },
-    {
-        "value": "Every4Hours",
-        "label": "Every4Hours",
-        "description": "Executes once every 4 hours"
-    },
-    {
-        "value": "Every6Hours",
-        "label": "Every6Hours",
-        "description": "Executes once every 6 hours"
-    },
-    {
-        "value": "Hourly",
-        "label": "Hourly",
-        "description": "Executes once every hour at the specified minute"
-    },
-    {
-        "value": "Daily",
-        "label": "Daily",
-        "description": "Executes once a day at the specified time"
-    },
-    {
-        "value": "Weekly",
-        "label": "Weekly",
-        "description": "Executes once a week on the specified day and time"
-    },
-    {
-        "value": "Monthly",
-        "label": "Monthly",
-        "description": "Executes once a month on the specified date and time"
-    },
-    {
-        "value": "Weekly_Monday",
-        "label": "Weekly_Monday",
-        "description": "Executes every Monday"
-    },
-    {
-        "value": "Weekly_Friday",
-        "label": "Weekly_Friday",
-        "description": "Executes every Friday"
-    },
-    {
-        "value": "Weekends",
-        "label": "Weekends",
-        "description": "Executes on Saturday and Sunday"
-    },
-    {
-        "value": "TwiceDaily",
-        "label": "TwiceDaily",
-        "description": "Executes twice a day (e.g., once in the morning and once in the evening)"
-    },
-    {
-        "value": "Quarterly",
-        "label": "Quarterly",
-        "description": "Executes every 3 months"
-    },
-    {
-        "value": "SemiMonthly",
-        "label": "SemiMonthly",
-        "description": "Executes on two fixed dates each month (e.g., 1st and 15th)"
-    },
-    {
-        "value": "SemiAnnually",
-        "label": "SemiAnnually",
-        "description": "Executes every 6 months (e.g., January and July)"
-    }
+  {
+    "value": "Immediate",
+    "label": "Immediate",
+    "description": "Executes as soon as the application starts",
+    "properties": []
+  },
+  {
+    "value": "EveryMinute",
+    "label": "EveryMinute",
+    "description": "Executes once every 1 minute",
+    "properties": []
+  },
+  {
+    "value": "Every2Minutes",
+    "label": "Every2Minutes",
+    "description": "Executes once every 2 minutes",
+    "properties": []
+  },
+  {
+    "value": "Every5Minutes",
+    "label": "Every5Minutes",
+    "description": "Executes once every 5 minutes",
+    "properties": []
+  },
+  {
+    "value": "Every10Minutes",
+    "label": "Every10Minutes",
+    "description": "Executes once every 10 minutes",
+    "properties": []
+  },
+  {
+    "value": "Every15Minutes",
+    "label": "Every15Minutes",
+    "description": "Executes once every 15 minutes",
+    "properties": []
+  },
+  {
+    "value": "Every30Minutes",
+    "label": "Every30Minutes",
+    "description": "Executes once every 30 minutes",
+    "properties": []
+  },
+  {
+    "value": "Every2Hours",
+    "label": "Every2Hours",
+    "description": "Executes once every 2 hours",
+    "properties": ["Minute"]
+  },
+  {
+    "value": "Every4Hours",
+    "label": "Every4Hours",
+    "description": "Executes once every 4 hours",
+    "properties": ["Minute"]
+  },
+  {
+    "value": "Every6Hours",
+    "label": "Every6Hours",
+    "description": "Executes once every 6 hours",
+    "properties": ["Minute"]
+  },
+  {
+    "value": "Hourly",
+    "label": "Hourly",
+    "description": "Executes once every hour at the specified minute",
+    "properties": ["Minute"]
+  },
+  {
+    "value": "Daily",
+    "label": "Daily",
+    "description": "Executes once a day at the specified time",
+    "properties": ["Hour", "Minute"]
+  },
+  {
+    "value": "Weekly",
+    "label": "Weekly",
+    "description": "Executes once a week on the specified day and time",
+    "properties": ["DayOfWeek", "Hour", "Minute"]
+  },
+  {
+    "value": "Monthly",
+    "label": "Monthly",
+    "description": "Executes once a month on the specified date and time",
+    "properties": ["DayOfMonth", "Hour", "Minute"]
+  },
+  {
+    "value": "Weekly_Monday",
+    "label": "Weekly_Monday",
+    "description": "Executes every Monday",
+    "properties": ["Hour", "Minute"]
+  },
+  {
+    "value": "Weekly_Friday",
+    "label": "Weekly_Friday",
+    "description": "Executes every Friday",
+    "properties": ["Hour", "Minute"]
+  },
+  {
+    "value": "Weekends",
+    "label": "Weekends",
+    "description": "Executes on Saturday and Sunday",
+    "properties": ["Hour", "Minute"]
+  },
+  {
+    "value": "TwiceDaily",
+    "label": "TwiceDaily",
+    "description": "Executes twice a day (e.g., once in the morning and once in the evening)",
+    "properties": ["Hour", "Minute"]
+  },
+  {
+    "value": "Quarterly",
+    "label": "Quarterly",
+    "description": "Executes every 3 months",
+    "properties": ["DayOfMonth", "Hour", "Minute"]
+  },
+  {
+    "value": "SemiMonthly",
+    "label": "SemiMonthly",
+    "description": "Executes on two fixed dates each month (e.g., 1st and 15th)",
+    "properties": ["DayOfMonth", "Hour", "Minute"]
+  },
+  {
+    "value": "SemiAnnually",
+    "label": "SemiAnnually",
+    "description": "Executes every 6 months (e.g., January and July)",
+    "properties": ["DayOfMonth", "Hour", "Minute"]
+  }
 ]
