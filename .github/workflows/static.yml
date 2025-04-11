@@ -81,8 +81,7 @@ jobs:
           rm -f website/.env website/README.md
 
       - name: 📛 Disable Jekyll
-        run: |
-          touch website/.nojekyll
+        run: touch website/.nojekyll
 
       - name: ⚙️ Setup GitHub Pages
         uses: actions/configure-pages@v5
@@ -91,8 +90,8 @@ jobs:
         run: |
           mkdir -p website/${{ github.event.inputs.target_env }}
           rsync -av --exclude='development' --exclude='staging' --exclude='production' \
-                --exclude='downloads' --exclude='${{ github.event.inputs.target_env }}' \
-                website/ website/${{ github.event.inputs.target_env }}/
+                  --exclude='downloads' --exclude='${{ github.event.inputs.target_env }}' \
+                  website/ website/${{ github.event.inputs.target_env }}/
 
       - name: 📄 Upload Static Files
         uses: actions/upload-pages-artifact@v3
