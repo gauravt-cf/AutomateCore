@@ -2,6 +2,11 @@
 window.addEventListener("scroll", () => {
     document.getElementById("scrollTopBtn").classList.toggle("hidden", window.scrollY < 200);
 });
+function getPageUrl(pageUrl) {
+    const basePath = window.location.pathname.split("/")[1];
+    const pathPrefix = basePath && basePath !== "" ? `/${basePath}` : "";
+    return `${pathPrefix}/${pageUrl}`.replace(/\/{2,}/g, "/");
+}
 $(function () {
     let currentYear = new Date().getFullYear();
     var AutomateCoreUI = new AutomateCoreUIComponents();
@@ -9,6 +14,10 @@ $(function () {
     $('button-scroll').html(AutomateCoreUI.getScrollButton());
     $('automate-core-footer').html(AutomateCoreUI.getMainFooter());
     $('current-year').html(currentYear);
+    $('a[data-page-url]').each(function () {
+        const page = $(this).data('page-url');
+        $(this).attr('href', getPageUrl(page));
+    });
 });
 function goToHomePage() {
     const pathParts = window.location.pathname.split("/");
@@ -83,7 +92,7 @@ class AutomateCoreUIComponents {
                                         Downloads
                                     </a>
                                     <!-- Add more links here if needed -->
-                                    <a href="/" class="text-black text-sm font-medium hover:underline hover:text-cyan-200 transition">
+                                    <a href="${getPageUrl("tools")}" class="text-black text-sm font-medium hover:underline hover:text-cyan-200 transition">
                                         Tools
                                     </a>
                                 </nav>
