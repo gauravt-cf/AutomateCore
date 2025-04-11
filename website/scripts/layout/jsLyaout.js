@@ -21,7 +21,7 @@ class AutomateCoreUIComponents {
                             <div class="flex items-center gap-4">
                             
                             <!-- Logo with Glassmorphism -->
-                            <div class="backdrop-blur-sm bg-white/10 p-2 rounded-full shadow-md hover:shadow-white/30 transition duration-300">
+                            <div class="backdrop-blur-sm bg-white/10 p-2 rounded-full shadow-md hover:shadow-white/30 transition duration-300" onclick="window.location.href='/'" style="cursor: pointer;">
                                 <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" stroke-width="2"
                                 viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -54,16 +54,33 @@ class AutomateCoreUIComponents {
                             </div>
                             </div>
 
-                            <!-- Right: GitHub CTA Button -->
-                            <a href="https://github.com/gauravt-cf/AutomateCore" target="_blank"
-                            class="bg-gradient-to-r from-cyan-400 to-blue-500 text-white font-semibold px-6 py-2 rounded-full shadow-lg hover:scale-105 hover:shadow-blue-400/40 transition duration-300 flex items-center gap-2">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                <path
-                                d="M12 0C5.37 0 0 5.373 0 12c0 5.304 3.438 9.8 8.207 11.387.6.113.793-.26.793-.577 0-.285-.012-1.233-.018-2.236-3.338.727-4.042-1.612-4.042-1.612-.546-1.385-1.333-1.754-1.333-1.754-1.09-.745.083-.729.083-.729 1.204.085 1.837 1.237 1.837 1.237 1.07 1.832 2.809 1.303 3.495.996.108-.775.42-1.303.763-1.602-2.665-.303-5.467-1.332-5.467-5.932 0-1.31.467-2.381 1.235-3.221-.124-.303-.536-1.524.117-3.176 0 0 1.008-.322 3.3 1.23a11.51 11.51 0 013.003-.404c1.02.004 2.047.138 3.003.404 2.289-1.552 3.294-1.23 3.294-1.23.655 1.653.243 2.874.12 3.176.77.84 1.233 1.911 1.233 3.221 0 4.61-2.807 5.625-5.48 5.922.43.372.823 1.102.823 2.222 0 1.604-.015 2.896-.015 3.289 0 .32.19.694.8.576C20.565 21.796 24 17.302 24 12c0-6.627-5.373-12-12-12z">
-                                </path>
-                            </svg>
-                            View on GitHub
-                            </a>
+                           <!-- Right: GitHub CTA Button + Menu -->
+                            <div class="flex flex-col md:flex-row items-center gap-4">
+
+                                <!-- GitHub CTA Button -->
+                                <a href="https://github.com/gauravt-cf/AutomateCore" target="_blank"
+                                    class="bg-gradient-to-r from-cyan-400 to-blue-500 text-white font-semibold px-6 py-2 rounded-full shadow-lg hover:scale-105 hover:shadow-blue-400/40 transition duration-300 flex items-center gap-2">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                        <path
+                                            d="M12 0C5.37 0 0 5.373 0 12c0 5.304 3.438 9.8 8.207 11.387.6.113.793-.26.793-.577 0-.285-.012-1.233-.018-2.236-3.338.727-4.042-1.612-4.042-1.612-.546-1.385-1.333-1.754-1.333-1.754-1.09-.745.083-.729.083-.729 1.204.085 1.837 1.237 1.837 1.237 1.07 1.832 2.809 1.303 3.495.996.108-.775.42-1.303.763-1.602-2.665-.303-5.467-1.332-5.467-5.932 0-1.31.467-2.381 1.235-3.221-.124-.303-.536-1.524.117-3.176 0 0 1.008-.322 3.3 1.23a11.51 11.51 0 013.003-.404c1.02.004 2.047.138 3.003.404 2.289-1.552 3.294-1.23 3.294-1.23.655 1.653.243 2.874.12 3.176.77.84 1.233 1.911 1.233 3.221 0 4.61-2.807 5.625-5.48 5.922.43.372.823 1.102.823 2.222 0 1.604-.015 2.896-.015 3.289 0 .32.19.694.8.576C20.565 21.796 24 17.302 24 12c0-6.627-5.373-12-12-12z">
+                                        </path>
+                                    </svg>
+                                    View on GitHub
+                                </a>
+
+                                <!-- Navigation Menu -->
+                                <nav class="flex gap-4">
+                                    <a href="/downloads" class="text-black text-sm font-medium hover:underline hover:text-cyan-200 transition">
+                                        Downloads
+                                    </a>
+                                    <!-- Add more links here if needed -->
+                                    <!-- <a href="/docs" class="text-white text-sm font-medium hover:underline hover:text-cyan-200 transition">
+                                        Docs
+                                    </a> -->
+                                </nav>
+
+                            </div>
+
                         </div>
                     </header>`
         },
