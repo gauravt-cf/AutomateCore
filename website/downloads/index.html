@@ -2,169 +2,183 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AutomateCore :: Downloads</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AutomateCore :: Downloads</title>
 
-  <!-- Meta -->
-  <meta name="description" content="AutomateCore is a lightweight, config-driven .NET Windows service scheduler." />
-  <meta name="keywords" content="AutomateCore, .NET Scheduler, Windows Service, config driven" />
-  <meta name="author" content="Gaurav T" />
-  <link rel="canonical" href="https://gauravt-cf.github.io/AutomateCore" />
+    <!-- Meta -->
+    <meta name="description" content="AutomateCore is a lightweight, config-driven .NET Windows service scheduler." />
+    <meta name="keywords" content="AutomateCore, .NET Scheduler, Windows Service, config driven" />
+    <meta name="author" content="Gaurav T" />
+    <link rel="canonical" href="https://gauravt-cf.github.io/AutomateCore" />
 
-  <!-- OG + Twitter -->
-  <meta property="og:title" content="AutomateCore Scheduler" />
-  <meta property="og:description" content="A config-driven .NET Scheduler for Windows services." />
-  <meta property="og:url" content="https://gauravt-cf.github.io/AutomateCore" />
-  <meta name="twitter:title" content="AutomateCore Scheduler" />
-  <meta name="twitter:description" content="Simple and powerful .NET Scheduler." />
+    <!-- OG + Twitter -->
+    <meta property="og:title" content="AutomateCore Scheduler" />
+    <meta property="og:description" content="A config-driven .NET Scheduler for Windows services." />
+    <meta property="og:url" content="https://gauravt-cf.github.io/AutomateCore" />
+    <meta name="twitter:title" content="AutomateCore Scheduler" />
+    <meta name="twitter:description" content="Simple and powerful .NET Scheduler." />
 
-  <!-- CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+    <!-- CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
 
-  <!-- Scripts -->
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
-  <script src="../scripts/layout/jsLyaout.js?v=1.0.0" defer></script>
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
+    <script src="../scripts/layout/jsLyaout.js?v=1.0.0" defer></script>
 
-  <style>
-    body {
-      background: linear-gradient(120deg, #f0f4ff, #ffffff);
-    }
+    <style>
+        body {
+            background: linear-gradient(120deg, #f0f4ff, #ffffff);
+        }
 
-    .gradient-btn {
-      background: linear-gradient(to right, #3b82f6, #06b6d4);
-    }
-  </style>
+        .gradient-btn {
+            background: linear-gradient(to right, #3b82f6, #06b6d4);
+        }
+    </style>
 </head>
 
 <body class="text-gray-800 font-sans">
-  <!-- Header -->
-  <top-header-bar></top-header-bar>
+    <!-- Header -->
+    <top-header-bar></top-header-bar>
 
-  <!-- Main -->
-  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <section data-aos="fade-up">
-      <div class="text-center mb-10">
-        <h1 class="text-4xl font-extrabold text-indigo-700">
-          <i class="fas fa-download mr-2"></i>Download AutomateCore DLLs
-        </h1>
-        <p class="text-lg text-gray-600 mt-2">All versions are production-ready and safe to use.</p>
+    <!-- Main -->
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <section data-aos="fade-up">
+            <div class="text-center mb-10">
+                <h1 class="text-4xl font-extrabold text-indigo-700">
+                    <i class="fas fa-download mr-2"></i>Download AutomateCore DLLs
+                </h1>
+                <p class="text-lg text-gray-600 mt-2">All versions are production-ready and safe to use.</p>
+            </div>
+
+            <!-- NuGet + GitHub Stars -->
+            <div class="flex justify-center items-center space-x-4 mb-8">
+                <a href="https://www.nuget.org/packages/AutomateCore" target="_blank">
+                    <img src="https://img.shields.io/nuget/v/AutomateCore?style=flat-square" alt="NuGet Version">
+                </a>
+            </div>
+
+            <!-- Search Input -->
+            <input type="text" id="searchInput" placeholder="Search version..."
+                class="w-full mb-6 p-3 border rounded-lg shadow-sm" />
+
+            <!-- Version Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Cards will be dynamically rendered from JS -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Scroll To Top -->
+    <button-scroll></button-scroll>
+
+    <!-- Footer -->
+    <automate-core-footer></automate-core-footer>
+
+    <!-- Changelog Modal -->
+    <div id="changelogModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+        <div class="bg-white p-6 rounded-xl shadow max-w-md w-full mx-4">
+            <h2 id="changelogTitle" class="text-xl font-bold mb-3 text-indigo-700"></h2>
+            <ul id="changelogContent" class="list-disc text-gray-700 text-sm pl-5 space-y-1"></ul>
+            <div class="text-right mt-4">
+                <button onclick="closeChangelog()" class="text-sm text-red-500 hover:underline">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        AOS.init({ once: true, duration: 800, easing: 'ease-in-out' });
+
+        const versions = [
+            {
+                version: "v1.2.0",
+                latest: true,
+                changes: ["Introduced dry-run mode for safe schedule testing.", "Live configuration reload using watcher.", "Retry logic added with exponential backoff."],
+                path: "/downloads/v1.2.0/AutomateCore.Scheduler.dll"
+            },
+            {
+                version: "v1.1.0",
+                changes: ["Improved schedule type parsing.", "Introduced retry handling mechanism.", "Refactored internal task engine."],
+                path: "/downloads/v1.1.0/AutomateCore.Scheduler.dll"
+            },
+            {
+                version: "v1.0.0",
+                changes: ["Initial stable release.", "Basic daily/weekly scheduling.", "Simple config section-based structure."],
+                path: "downloads/dlls/v1.0.0/AutomateCore.dll"
+            }
+        ];
+        function getBasePath() {
+            const parts = window.location.pathname.split("/").filter(Boolean);
+            return parts.length > 0 ? `/${parts[0]}` : "";
+        }
+        const basePath = getBasePath();
+        const versionsWithResolvedPaths = versions.map(v => ({
+            ...v,
+            path: `${basePath}/${v.path}`
+        }));
+
+        function renderCards() {
+            const container = document.querySelector('.grid');
+
+            versionsWithResolvedPaths.forEach(({ version, changes, path, latest }) => {
+                const div = document.createElement('div');
+                div.className = "version-card bg-white rounded-2xl shadow-lg p-6 flex flex-col justify-between hover:shadow-xl transition";
+
+                div.innerHTML = `
+      <div>
+        <h2 class="text-lg font-bold text-gray-800">
+          ${version} ${latest ? '<span class="text-xs bg-green-100 text-green-700 ml-2 px-2 py-1 rounded-full">Latest</span>' : ''}
+        </h2>
+        <ul class="list-disc ml-5 mt-2 text-sm text-gray-600">
+          ${changes.map(c => `<li>${c}</li>`).join('')}
+        </ul>
       </div>
-
-      <!-- NuGet + GitHub Stars -->
-      <div class="flex justify-center items-center space-x-4 mb-8">
-        <a href="https://www.nuget.org/packages/AutomateCore" target="_blank">
-          <img src="https://img.shields.io/nuget/v/AutomateCore?style=flat-square" alt="NuGet Version">
+      <div class="mt-4 flex justify-between items-center">
+        <button onclick="showChangelog('${version}')" class="text-sm text-indigo-500 underline">View Changelog</button>
+        <a href="${path}" class="inline-flex items-center px-4 py-2 text-sm font-semibold text-white bg-indigo-600 rounded-lg hover:bg-indigo-700">
+          <i class="fas fa-cloud-download-alt mr-2"></i>Download
         </a>
       </div>
+    `;
 
-      <!-- Search Input -->
-      <input type="text" id="searchInput" placeholder="Search version..."
-        class="w-full mb-6 p-3 border rounded-lg shadow-sm" />
+                container.appendChild(div);
+            });
+        }
 
-      <!-- Version Cards -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- Cards will be dynamically rendered from JS -->
-      </div>
-    </section>
-  </main>
 
-  <!-- Scroll To Top -->
-  <button-scroll></button-scroll>
+        function showChangelog(version) {
+            const entry = versions.find(v => v.version === version);
+            if (!entry) return;
+            document.getElementById('changelogTitle').innerText = `Changelog - ${version}`;
+            const list = document.getElementById('changelogContent');
+            list.innerHTML = '';
+            entry.changes.forEach(item => {
+                const li = document.createElement('li');
+                li.innerText = item;
+                list.appendChild(li);
+            });
+            document.getElementById('changelogModal').classList.remove('hidden');
+        }
 
-  <!-- Footer -->
-  <automate-core-footer></automate-core-footer>
+        function closeChangelog() {
+            document.getElementById('changelogModal').classList.add('hidden');
+        }
 
-  <!-- Changelog Modal -->
-  <div id="changelogModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
-    <div class="bg-white p-6 rounded-xl shadow max-w-md w-full mx-4">
-      <h2 id="changelogTitle" class="text-xl font-bold mb-3 text-indigo-700"></h2>
-      <ul id="changelogContent" class="list-disc text-gray-700 text-sm pl-5 space-y-1"></ul>
-      <div class="text-right mt-4">
-        <button onclick="closeChangelog()" class="text-sm text-red-500 hover:underline">Close</button>
-      </div>
-    </div>
-  </div>
+        document.getElementById('searchInput').addEventListener('input', function () {
+            const value = this.value.toLowerCase();
+            document.querySelectorAll('.version-card').forEach(card => {
+                card.style.display = card.textContent.toLowerCase().includes(value) ? 'flex' : 'none';
+            });
+        });
 
-  <!-- Scripts -->
-  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-  <script>
-    AOS.init({ once: true, duration: 800, easing: 'ease-in-out' });
+        renderCards();
+    </script>
 
-    const versions = [
-      {
-        version: "v1.2.0",
-        latest: true,
-        changes: ["Introduced dry-run mode for safe schedule testing.", "Live configuration reload using watcher.", "Retry logic added with exponential backoff."],
-        path: "/downloads/v1.2.0/AutomateCore.Scheduler.dll"
-      },
-      {
-        version: "v1.1.0",
-        changes: ["Improved schedule type parsing.", "Introduced retry handling mechanism.", "Refactored internal task engine."],
-        path: "/downloads/v1.1.0/AutomateCore.Scheduler.dll"
-      },
-      {
-        version: "v1.0.0",
-        changes: ["Initial stable release.", "Basic daily/weekly scheduling.", "Simple config section-based structure."],
-        path: "/website/downloads/dlls/v1.0.0/AutomateCore.dll"
-      }
-    ];
-
-    function renderCards() {
-      const container = document.querySelector('.grid');
-      versions.forEach(({ version, changes, path, latest }) => {
-        const div = document.createElement('div');
-        div.className = "version-card bg-white rounded-2xl shadow-lg p-6 flex flex-col justify-between hover:shadow-xl transition";
-        div.innerHTML = `
-          <div>
-            <h2 class="text-lg font-bold text-gray-800">
-              ${version} ${latest ? '<span class="text-xs bg-green-100 text-green-700 ml-2 px-2 py-1 rounded-full">Latest</span>' : ''}
-            </h2>
-            <ul class="list-disc ml-5 mt-2 text-sm text-gray-600">
-              ${changes.map(c => `<li>${c}</li>`).join('')}
-            </ul>
-          </div>
-          <div class="mt-4 flex justify-between items-center">
-            <button onclick="showChangelog('${version}')" class="text-sm text-indigo-500 underline">View Changelog</button>
-            <a href="${path}" class="inline-flex items-center px-4 py-2 text-sm font-semibold text-white bg-indigo-600 rounded-lg hover:bg-indigo-700">
-              <i class="fas fa-cloud-download-alt mr-2"></i>Download
-            </a>
-          </div>`;
-        container.appendChild(div);
-      });
-    }
-
-    function showChangelog(version) {
-      const entry = versions.find(v => v.version === version);
-      if (!entry) return;
-      document.getElementById('changelogTitle').innerText = `Changelog - ${version}`;
-      const list = document.getElementById('changelogContent');
-      list.innerHTML = '';
-      entry.changes.forEach(item => {
-        const li = document.createElement('li');
-        li.innerText = item;
-        list.appendChild(li);
-      });
-      document.getElementById('changelogModal').classList.remove('hidden');
-    }
-
-    function closeChangelog() {
-      document.getElementById('changelogModal').classList.add('hidden');
-    }
-
-    document.getElementById('searchInput').addEventListener('input', function () {
-      const value = this.value.toLowerCase();
-      document.querySelectorAll('.version-card').forEach(card => {
-        card.style.display = card.textContent.toLowerCase().includes(value) ? 'flex' : 'none';
-      });
-    });
-
-    renderCards();
-  </script>
-
-  <script src="../scripts/jsGithub.js?v=1.02.2" defer></script>
+    <script src="../scripts/jsGithub.js?v=1.02.2" defer></script>
 </body>
 
 </html>
