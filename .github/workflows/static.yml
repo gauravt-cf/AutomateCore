@@ -45,10 +45,13 @@ jobs:
       - name: ⚙️ Setup GitHub Pages
         uses: actions/configure-pages@v5  # Set up GitHub Pages for deployment
 
-      - name: 🏗️ Build Environment Folder
+        - name: 🏗️ Build Environment Subfolder
         run: |
           mkdir -p website/${{ github.event.inputs.target_env }}
-          cp -r website/* website/${{ github.event.inputs.target_env }}/
+          rsync -av --exclude='development' --exclude='staging' --exclude='production' \
+                --exclude='downloads' \
+                --exclude='${{ github.event.inputs.target_env }}' \
+                website/ website/${{ github.event.inputs.target_env }}/      
 
       - name: 📄 Upload Static Files
         uses: actions/upload-pages-artifact@v3  # Upload files to be deployed
