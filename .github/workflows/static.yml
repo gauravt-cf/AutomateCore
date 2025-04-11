@@ -43,8 +43,14 @@ jobs:
         with:
           node-version: '18'
 
-      - name: 📦 Install JavaScript Obfuscator
-        run: npm install -g javascript-obfuscator
+      - name: 📦 Install Build Tools
+        run: |
+          npm install -g javascript-obfuscator html-minifier-terser clean-css-cli terser
+
+      - name: 🧾 Backup Original Files
+        run: |
+          mkdir -p website/_originals
+          find website/ -type f \( -name "*.js" -o -name "*.css" -o -name "*.html" \) -exec cp --parents {} website/_originals/ \;
 
       - name: 🧪 Obfuscate JS in /website/scripts
         run: |
@@ -54,14 +60,21 @@ jobs:
             rm -rf website/scripts
             mv website/scripts-obfuscated website/scripts
           fi
-          
-      - name: 🔧 Install HTML Minifier
-          run: npm install -g html-minifier-terser
-        
+
       - name: ✂️ Minify HTML Files
-          run: |
-            find website/ -name '*.html' -exec html-minifier-terser --collapse-whitespace --remove-comments --minify-css true --minify-js true -o {} {} \;
-        
+        run: |
+          find website/ -name '*.html' -exec html-minifier-terser \
+            --collapse-whitespace --remove-comments --minify-css true --minify-js true \
+            -o {} {} \;
+
+      - name: ✂️ Minify CSS Files
+        run: |
+          find website/ -name '*.css' -exec cleancss -o {} {} \;
+
+      - name: ✂️ Minify Remaining JS Files (not already obfuscated)
+        run: |
+          find website/ -name '*.js' ! -path '*/scripts/*' -exec terser {} -c -m -o {} \;
+
       - name: ⚙️ Setup GitHub Pages
         uses: actions/configure-pages@v5
 
@@ -69,15 +82,9 @@ jobs:
         run: |
           mkdir -p website/${{ github.event.inputs.target_env }}
           rsync -av --exclude='development' --exclude='staging' --exclude='production' \
-                --exclude='downloads' \
-                --exclude='${{ github.event.inputs.target_env }}' \
+                --exclude='downloads' --exclude='${{ github.event.inputs.target_env }}' \
                 website/ website/${{ github.event.inputs.target_env }}/
-                
-      - name: 🧾 Backup Originals
-                run: |
-                  mkdir -p website/_originals
-                  cp -r website/*.js website/*.css website/*.html website/_originals/ || true
-              
+
       - name: 📄 Upload Static Files
         uses: actions/upload-pages-artifact@v3
         with:
