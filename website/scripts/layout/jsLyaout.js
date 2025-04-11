@@ -83,9 +83,9 @@ class AutomateCoreUIComponents {
                                         Downloads
                                     </a>
                                     <!-- Add more links here if needed -->
-                                    <!-- <a href="/docs" class="text-white text-sm font-medium hover:underline hover:text-cyan-200 transition">
-                                        Docs
-                                    </a> -->
+                                    <a href="/" class="text-black text-sm font-medium hover:underline hover:text-cyan-200 transition">
+                                        Tools
+                                    </a>
                                 </nav>
 
                             </div>

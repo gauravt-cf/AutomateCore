@@ -2,11 +2,9 @@
 name: Deploy to GitHub Pages
 
 on:
-  # Trigger deployment on push to the main branch
   push:
     branches: ["main"]
 
-  # Allow manual trigger from GitHub UI with environment input
   workflow_dispatch:
     inputs:
       target_env:
@@ -19,31 +17,46 @@ on:
           - staging
           - production
 
-# Set token permissions for deploying to Pages
 permissions:
-  contents: read         # Allows reading repository content (for checkout)
-  pages: write           # Allows publishing to GitHub Pages
-  id-token: write        # Required for GitHub Pages OIDC deployment
+  contents: read
+  pages: write
+  id-token: write
 
-# Ensure only one deployment runs at a time
 concurrency:
-  group: "pages-${{ github.event.inputs.target_env || 'staging' }}"  # Separate concurrency per environment
+  group: "pages-${{ github.event.inputs.target_env || 'staging' }}"
   cancel-in-progress: false
 
 jobs:
   deploy:
-    name: 📆 Deploy to GitHub Pages (${{ github.event.inputs.target_env || 'staging' }})
+    name: 📦 Deploy to GitHub Pages (${{ github.event.inputs.target_env || 'staging' }})
     runs-on: ubuntu-latest
     environment:
-      name: ${{ github.event.inputs.target_env || 'staging' }}  # Dynamic environment name
+      name: ${{ github.event.inputs.target_env || 'staging' }}
       url: ${{ steps.deploy.outputs.page_url }}
 
     steps:
       - name: 🔄 Checkout Repository
-        uses: actions/checkout@v4     # Checkout the latest code from the repo
+        uses: actions/checkout@v4
+
+      - name: 🛠 Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: 📦 Install JavaScript Obfuscator
+        run: npm install -g javascript-obfuscator
+
+      - name: 🧪 Obfuscate JS in /website/scripts
+        run: |
+          if [ -d "website/scripts" ]; then
+            javascript-obfuscator website/scripts --output website/scripts-obfuscated \
+              --compact true --self-defending true
+            rm -rf website/scripts
+            mv website/scripts-obfuscated website/scripts
+          fi
 
       - name: ⚙️ Setup GitHub Pages
-        uses: actions/configure-pages@v5  # Set up GitHub Pages for deployment
+        uses: actions/configure-pages@v5
 
       - name: 🏗️ Build Environment Subfolder
         run: |
@@ -54,13 +67,13 @@ jobs:
                 website/ website/${{ github.event.inputs.target_env }}/
 
       - name: 📄 Upload Static Files
-        uses: actions/upload-pages-artifact@v3  # Upload files to be deployed
+        uses: actions/upload-pages-artifact@v3
         with:
-          path: './website'           # Folder containing static site content
+          path: ./website
 
       - name: 🚀 Deploy to GitHub Pages
         id: deploy
-        uses: actions/deploy-pages@v4  # Actual deployment step
+        uses: actions/deploy-pages@v4
 
       - name: ✅ Deployment Complete
         run: echo "Deployment to ${{ github.event.inputs.target_env || 'staging' }} complete at ${{ steps.deploy.outputs.page_url }}"

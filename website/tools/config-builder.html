@@ -5,7 +5,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AutomateCore :: Config Builder</title>
-    <meta name="description" content="Build .config files for AutomateCore, a lightweight .NET Windows service scheduler." />
+    <meta name="description"
+        content="Build .config files for AutomateCore, a lightweight .NET Windows service scheduler." />
     <meta name="keywords" content="AutomateCore, config builder, task scheduler, .NET, Windows service" />
     <meta name="author" content="Gaurav T" />
 
@@ -30,15 +31,19 @@
         body {
             color: #e2e8f0;
         }
+
         .glass {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
+
         .gradient-btn {
             background: linear-gradient(to right, #3b82f6, #06b6d4);
         }
-        input, select {
+
+        input,
+        select {
             background-color: #1e293b;
             color: #e2e8f0;
             border: 1px solid #334155;
@@ -53,79 +58,111 @@
         <h1 class="text-4xl font-extrabold text-center text-cyan-400 mb-12" data-aos="fade-down">
             ⚙️ AutomateCore Config Builder
         </h1>
-    
+
         <form id="config-form" class="glass p-8 rounded-3xl shadow-2xl space-y-8" data-aos="fade-up">
-            <div class="space-y-2">
+            <div class="space-y-2" style="display: none;">
                 <label for="taskName" class="block text-sm font-medium">Task Name</label>
-                <input type="text" id="taskName" class="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-cyan-500" placeholder="e.g., MyCustomTask" />
+                <input type="text" id="taskName"
+                    class="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                    placeholder="e.g., MyCustomTask" />
             </div>
-    
+
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
                 <div class="space-y-2">
                     <label for="scheduleType" class="block text-sm font-medium">Schedule Type</label>
-                    <select id="scheduleType" class="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-cyan-500">
+                    <select id="scheduleType"
+                        class="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-cyan-500">
                         <option value="Daily">Daily</option>
                         <option value="Weekly">Weekly</option>
                         <option value="Once">Once</option>
                         <option value="Cron">Cron</option>
                     </select>
                 </div>
-    
+
                 <div class="space-y-2">
                     <label for="enabled" class="block text-sm font-medium">Enabled</label>
-                    <select id="enabled" class="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-cyan-500">
+                    <select id="enabled"
+                        class="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-cyan-500">
                         <option value="true">True</option>
                         <option value="false">False</option>
                     </select>
                 </div>
-    
+
                 <div class="space-y-2">
                     <label for="hour" class="block text-sm font-medium">Hour</label>
-                    <input type="number" id="hour" class="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-cyan-500" min="0" max="23" placeholder="e.g., 14" />
+                    <input type="number" id="hour"
+                        class="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                        min="0" max="23" placeholder="e.g., 14" />
                 </div>
-    
+
                 <div class="space-y-2">
                     <label for="minute" class="block text-sm font-medium">Minute</label>
-                    <input type="number" id="minute" class="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-cyan-500" min="0" max="59" placeholder="e.g., 30" />
+                    <input type="number" id="minute"
+                        class="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                        min="0" max="59" placeholder="e.g., 30" />
+                </div>
+                <div class="space-y-2">
+                    <label for="minute" class="block text-sm font-medium">Day Of Week</label>
+                    <input type="text" id="dayOfWeak"
+                        class="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                        min="0" max="59" placeholder="e.g., Monday" />
+                </div>
+                <div class="space-y-2">
+                    <label for="minute" class="block text-sm font-medium">Day Of Month</label>
+                    <input type="number" id="dayOfMonth"
+                        class="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                        min="0" max="59" placeholder="e.g., 15" />
+                </div>
+                <div class="space-y-2">
+                    <label for="minute" class="block text-sm font-medium">Dry Run</label>
+                    <select id="enabled"
+                        class="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-cyan-500">
+                        <option value="true">True</option>
+                        <option value="false">False</option>
+                    </select>
                 </div>
             </div>
-    
+
             <div class="text-center pt-6">
-                <button type="button" id="generateConfig" class="gradient-btn text-white px-6 py-3 rounded-xl font-semibold shadow-md hover:shadow-lg transition transform hover:scale-105">
+                <button type="button" id="generateConfig"
+                    class="gradient-btn text-white px-6 py-3 rounded-xl font-semibold shadow-md hover:shadow-lg transition transform hover:scale-105">
                     🔧 Generate .config
                 </button>
             </div>
         </form>
-    
+
         <section class="mt-16" data-aos="fade-up">
             <h2 class="text-2xl font-bold mb-4 text-cyan-300">Generated .config</h2>
             <div class="bg-gray-900 p-6 rounded-xl border border-gray-700 overflow-x-auto">
                 <pre id="config-preview" class="text-green-300 text-sm whitespace-pre-wrap break-words font-mono"></pre>
             </div>
             <div class="text-right mt-4">
-                <button id="copyConfig" class="gradient-btn text-white px-5 py-2 rounded-lg font-medium shadow hover:shadow-lg transition">
+                <button id="copyConfig"
+                    class="gradient-btn text-white px-5 py-2 rounded-lg font-medium shadow hover:shadow-lg transition">
                     📋 Copy to Clipboard
                 </button>
             </div>
         </section>
     </main>
-    
+
     <button-scroll>
+
     </button-scroll>
-    <!-- Footer -->
-    <automate-core-footer></automate-core-footer>
+    <automate-core-footer>
+
+    </automate-core-footer>
+
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-  
     <script>
-      AOS.init({
-        once: true,       // Only animate once
-        duration: 800,    // Animation speed
-        easing: 'ease-in-out',
-      });
+        AOS.init({
+            once: true,
+            duration: 800, 
+            easing: 'ease-in-out',
+        });
     </script>
-  
-    <script src="scripts/jsGithub.js?v=1.02.2"></script>
-    <script src="scripts/jsIndex.js?v=1.0.0.2"></script>
+
+    <script src="../scripts/jsGithub.js?v=1.02.2"></script>
+    <script src="../scripts/tools/jsConfigBuilder.js?v=1.2.3"></script>
     <script>
         $('#generateConfig').on('click', function () {
             const configTemplate = `
