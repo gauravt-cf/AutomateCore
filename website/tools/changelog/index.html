@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutomateCore :: Changelog</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
+    <style>
+        :root {
+            --primary: #00c6ff;
+            --secondary: #0072ff;
+            --dark: #0f172a;
+            --light: #f8fafc;
+        }
+        
+        body {
+            background: #f8fafc;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .version-card {
+            transition: all 0.3s ease;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .version-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 198, 255, 0.15);
+        }
+        
+        .version-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+        
+        .feature-tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-right: 6px;
+            margin-bottom: 6px;
+        }
+        
+        .feature-tag.type-enhancement {
+            background-color: #e0f2fe;
+            color: #0369a1;
+        }
+        
+        .feature-tag.type-fix {
+            background-color: #fce7f3;
+            color: #9d174d;
+        }
+        
+        .feature-tag.type-feature {
+            background-color: #dcfce7;
+            color: #166534;
+        }
+        
+        .changelog-nav {
+            position: sticky;
+            top: 20px;
+        }
+        .header-gradient {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+        }
+        
+    </style>
+    <script src="../../scripts/layout/jsLyaout.js?v=1.0.0"></script>
+</head>
+<body class="text-gray-800">
+    <!-- Header -->
+    <top-header-bar></top-header-bar>
+
+    <section class="header-gradient text-white py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-8">
+                <div class="md:w-1/2">
+                    <h1 class="text-4xl font-extrabold mb-4" data-aos="fade-right">
+                        <span class="gradient-text">Release Notes</span>
+                    </h1>
+                    <p class="text-xl text-blue-100 mb-8" data-aos="fade-right" data-aos-delay="100">
+                        Discover what's new, improved, and fixed in each version of AutomateCore
+                    </p>
+                </div>
+                
+                <div class="update-icon p-8 rounded-xl bg-blue-900/20" data-aos="zoom-in">
+                    <i class="fas fa-sync-alt text-6xl gradient-text"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Version Navigation -->
+            <div class="lg:w-1/4">
+                <div class="changelog-nav bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                    <h2 class="text-lg font-bold text-gray-800 mb-4">Versions</h2>
+                    <div class="space-y-2">
+                        <a href="#v1.2.0" class="block px-3 py-2 rounded-lg bg-blue-50 text-blue-700 font-medium">v1.2.0 - Latest</a>
+                        <a href="#v1.1.0" class="block px-3 py-2 rounded-lg hover:bg-gray-50 transition">v1.1.0</a>
+                        <a href="#v1.0.0" class="block px-3 py-2 rounded-lg hover:bg-gray-50 transition">v1.0.0</a>
+                    </div>
+                    
+                    <div class="mt-8">
+                        <h2 class="text-lg font-bold text-gray-800 mb-4">Filter by Type</h2>
+                        <div class="flex flex-wrap gap-2">
+                            <button class="feature-tag type-feature">Features</button>
+                            <button class="feature-tag type-enhancement">Enhancements</button>
+                            <button class="feature-tag type-fix">Fixes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Version Content -->
+            <div class="lg:w-3/4 space-y-8">
+                <!-- Version 1.2.0 -->
+                <div id="v1.2.0" class="version-card shadow-md" data-aos="fade-up">
+                    <div class="version-header text-white p-6">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h2 class="text-2xl font-bold">v1.2.0</h2>
+                                <p class="text-blue-100">November 15, 2023</p>
+                            </div>
+                            <span class="inline-block bg-white/20 text-white text-xs px-3 py-1 rounded-full">Latest Release</span>
+                        </div>
+                        <a href="/downloads" class="mt-4 inline-flex items-center px-4 py-2 bg-white text-blue-600 rounded-lg font-medium hover:bg-blue-50 transition">
+                            <i class="fas fa-download mr-2"></i> Download Now
+                        </a>
+                    </div>
+                    
+                    <div class="p-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Major Features -->
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                                    <i class="fas fa-star text-yellow-500 mr-2"></i> Major Features
+                                </h3>
+                                <ul class="space-y-4">
+                                    <li class="flex items-start">
+                                        <div class="flex-shrink-0 mt-1">
+                                            <div class="flex items-center justify-center h-6 w-6 rounded-full bg-green-100 text-green-800">
+                                                <i class="fas fa-check text-xs"></i>
+                                            </div>
+                                        </div>
+                                        <div class="ml-3">
+                                            <p class="text-gray-800 font-medium">Dry-run Mode</p>
+                                            <p class="text-gray-600 text-sm mt-1">Test schedules safely without execution</p>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <div class="flex-shrink-0 mt-1">
+                                            <div class="flex items-center justify-center h-6 w-6 rounded-full bg-green-100 text-green-800">
+                                                <i class="fas fa-check text-xs"></i>
+                                            </div>
+                                        </div>
+                                        <div class="ml-3">
+                                            <p class="text-gray-800 font-medium">Retry Mechanism</p>
+                                            <p class="text-gray-600 text-sm mt-1">Exponential backoff for failed tasks</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <!-- Improvements -->
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                                    <i class="fas fa-bolt text-blue-500 mr-2"></i> Improvements
+                                </h3>
+                                <ul class="space-y-4">
+                                    <li class="flex items-start">
+                                        <div class="flex-shrink-0 mt-1">
+                                            <div class="flex items-center justify-center h-6 w-6 rounded-full bg-blue-100 text-blue-800">
+                                                <i class="fas fa-arrow-up text-xs"></i>
+                                            </div>
+                                        </div>
+                                        <div class="ml-3">
+                                            <p class="text-gray-800 font-medium">Memory Optimization</p>
+                                            <p class="text-gray-600 text-sm mt-1">Reduced usage by 20%</p>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <div class="flex-shrink-0 mt-1">
+                                            <div class="flex items-center justify-center h-6 w-6 rounded-full bg-blue-100 text-blue-800">
+                                                <i class="fas fa-arrow-up text-xs"></i>
+                                            </div>
+                                        </div>
+                                        <div class="ml-3">
+                                            <p class="text-gray-800 font-medium">Health Checks</p>
+                                            <p class="text-gray-600 text-sm mt-1">New monitoring endpoint</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <!-- All Changes -->
+                        <div class="mt-8">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-3">All Changes</h3>
+                            <div class="bg-gray-50 rounded-lg p-4">
+                                <ul class="space-y-3 text-sm">
+                                    <li class="flex items-start">
+                                        <span class="feature-tag type-feature mr-2">Feature</span>
+                                        <span>Added dry-run mode for schedule testing</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="feature-tag type-feature mr-2">Feature</span>
+                                        <span>Implemented retry logic with exponential backoff</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="feature-tag type-enhancement mr-2">Enhancement</span>
+                                        <span>Optimized memory usage by 20%</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="feature-tag type-enhancement mr-2">Enhancement</span>
+                                        <span>Added health check endpoint</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="feature-tag type-fix mr-2">Fix</span>
+                                        <span>Resolved timezone handling issues</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Version 1.1.0 -->
+                <div id="v1.1.0" class="version-card shadow-md" data-aos="fade-up">
+                    <div class="bg-gray-800 text-white p-6">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h2 class="text-2xl font-bold">v1.1.0</h2>
+                                <p class="text-gray-300">September 22, 2023</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="p-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Major Features -->
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                                    <i class="fas fa-star text-yellow-500 mr-2"></i> Major Features
+                                </h3>
+                                <ul class="space-y-4">
+                                    <li class="flex items-start">
+                                        <div class="flex-shrink-0 mt-1">
+                                            <div class="flex items-center justify-center h-6 w-6 rounded-full bg-green-100 text-green-800">
+                                                <i class="fas fa-check text-xs"></i>
+                                            </div>
+                                        </div>
+                                        <div class="ml-3">
+                                            <p class="text-gray-800 font-medium">Weekly Scheduling</p>
+                                            <p class="text-gray-600 text-sm mt-1">Added support for weekly schedules</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <!-- Improvements -->
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                                    <i class="fas fa-bolt text-blue-500 mr-2"></i> Improvements
+                                </h3>
+                                <ul class="space-y-4">
+                                    <li class="flex items-start">
+                                        <div class="flex-shrink-0 mt-1">
+                                            <div class="flex items-center justify-center h-6 w-6 rounded-full bg-blue-100 text-blue-800">
+                                                <i class="fas fa-arrow-up text-xs"></i>
+                                            </div>
+                                        </div>
+                                        <div class="ml-3">
+                                            <p class="text-gray-800 font-medium">Enhanced Logging</p>
+                                            <p class="text-gray-600 text-sm mt-1">More detailed execution logs</p>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <div class="flex-shrink-0 mt-1">
+                                            <div class="flex items-center justify-center h-6 w-6 rounded-full bg-blue-100 text-blue-800">
+                                                <i class="fas fa-arrow-up text-xs"></i>
+                                            </div>
+                                        </div>
+                                        <div class="ml-3">
+                                            <p class="text-gray-800 font-medium">Config Validation</p>
+                                            <p class="text-gray-600 text-sm mt-1">Better error messages</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Version 1.0.0 -->
+                <div id="v1.0.0" class="version-card shadow-md" data-aos="fade-up">
+                    <div class="bg-gray-700 text-white p-6">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h2 class="text-2xl font-bold">v1.0.0</h2>
+                                <p class="text-gray-300">August 10, 2023</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="p-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Major Features -->
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                                    <i class="fas fa-star text-yellow-500 mr-2"></i> Major Features
+                                </h3>
+                                <ul class="space-y-4">
+                                    <li class="flex items-start">
+                                        <div class="flex-shrink-0 mt-1">
+                                            <div class="flex items-center justify-center h-6 w-6 rounded-full bg-green-100 text-green-800">
+                                                <i class="fas fa-check text-xs"></i>
+                                            </div>
+                                        </div>
+                                        <div class="ml-3">
+                                            <p class="text-gray-800 font-medium">Initial Release</p>
+                                            <p class="text-gray-600 text-sm mt-1">First stable version</p>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <div class="flex-shrink-0 mt-1">
+                                            <div class="flex items-center justify-center h-6 w-6 rounded-full bg-green-100 text-green-800">
+                                                <i class="fas fa-check text-xs"></i>
+                                            </div>
+                                        </div>
+                                        <div class="ml-3">
+                                            <p class="text-gray-800 font-medium">Daily Scheduling</p>
+                                            <p class="text-gray-600 text-sm mt-1">Basic daily task execution</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <!-- Technical -->
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                                    <i class="fas fa-cog text-gray-500 mr-2"></i> Technical
+                                </h3>
+                                <ul class="space-y-4">
+                                    <li class="flex items-start">
+                                        <div class="flex-shrink-0 mt-1">
+                                            <div class="flex items-center justify-center h-6 w-6 rounded-full bg-gray-100 text-gray-800">
+                                                <i class="fas fa-code text-xs"></i>
+                                            </div>
+                                        </div>
+                                        <div class="ml-3">
+                                            <p class="text-gray-800 font-medium">Windows Service</p>
+                                            <p class="text-gray-600 text-sm mt-1">Full service integration</p>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <div class="flex-shrink-0 mt-1">
+                                            <div class="flex items-center justify-center h-6 w-6 rounded-full bg-gray-100 text-gray-800">
+                                                <i class="fas fa-code text-xs"></i>
+                                            </div>
+                                        </div>
+                                        <div class="ml-3">
+                                            <p class="text-gray-800 font-medium">XML Configuration</p>
+                                            <p class="text-gray-600 text-sm mt-1">Config-driven setup</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <automate-core-footer></automate-core-footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            once: true,
+            duration: 800,
+            easing: 'ease-out-quart'
+        });
+
+        // Filter functionality
+        document.querySelectorAll('.feature-tag').forEach(tag => {
+            tag.addEventListener('click', function() {
+                const type = this.classList.contains('type-feature') ? 'feature' : 
+                            this.classList.contains('type-enhancement') ? 'enhancement' : 'fix';
+                
+                // In a real implementation, you would filter the changelog items
+                alert(`Filtering by ${type} would be implemented here`);
+            });
+        });
+    </script>
+</body>
+</html>

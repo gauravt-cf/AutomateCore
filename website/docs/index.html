@@ -1,0 +1,1660 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AutomateCore :: Futuristic Documentation</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.21/dist/vanta.net.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%2300c6ff'/><stop offset='100%' stop-color='%230072ff'/></linearGradient></defs><path fill='url(%23grad)' d='M50 15a35 35 0 1 0 0 70 35 35 0 0 0 0-70zm0 10a25 25 0 1 1 0 50 25 25 0 0 1 0-50zm-15 5a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm30 0a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm-22.5 20a7.5 7.5 0 1 0 0 15 7.5 7.5 0 0 0 0-15zm15 0a7.5 7.5 0 1 0 0 15 7.5 7.5 0 0 0 0-15z'/></svg>">
+    <style>
+        :root {
+            --primary: #00c6ff;
+            --secondary: #0072ff;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --neon: #00f7ff;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            color: var(--light);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, var(--dark) 0%, #1e293b 100%);
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .neon-text {
+            text-shadow: 0 0 5px var(--neon), 0 0 10px var(--neon);
+        }
+
+        .glass-card {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            border-color: rgba(0, 199, 255, 0.3);
+            box-shadow: 0 0 15px rgba(0, 199, 255, 0.1);
+        }
+
+        .sidebar {
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .code-block {
+            background: #1e293b;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .code-block::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+            border-radius: 8px 0 0 8px;
+        }
+
+        .active-link {
+            background: rgba(0, 198, 255, 0.1);
+            border-left: 3px solid var(--primary);
+        }
+
+        .scroll-top-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            box-shadow: 0 4px 15px rgba(0, 198, 255, 0.3);
+        }
+
+        .feature-card {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(to bottom right,
+                    rgba(0, 198, 255, 0) 0%,
+                    rgba(0, 198, 255, 0.1) 50%,
+                    rgba(0, 198, 255, 0) 100%);
+            transform: rotate(30deg);
+            transition: all 0.6s ease;
+            opacity: 0;
+        }
+
+        .feature-card:hover::before {
+            animation: shine 1.5s;
+            opacity: 1;
+        }
+
+        @keyframes shine {
+            0% {
+                transform: rotate(30deg) translate(-30%, -30%);
+            }
+
+            100% {
+                transform: rotate(30deg) translate(30%, 30%);
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        .floating-icon {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .holographic-effect {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .holographic-effect::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg,
+                    rgba(0, 199, 255, 0.05) 0%,
+                    rgba(0, 199, 255, 0.1) 50%,
+                    rgba(0, 199, 255, 0.05) 100%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .terminal-header {
+            background: linear-gradient(90deg, #2d3748, #4a5568);
+            border-radius: 8px 8px 0 0;
+        }
+
+        .terminal-body {
+            background: #1e293b;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .glow-border {
+            position: relative;
+        }
+
+        .glow-border::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            z-index: -1;
+            border-radius: inherit;
+            filter: blur(5px);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .glow-border:hover::before {
+            opacity: 0.7;
+        }
+
+        .neon-pulse {
+            animation: neonPulse 2s infinite alternate;
+        }
+
+        @keyframes neonPulse {
+            from {
+                box-shadow: 0 0 5px rgba(0, 247, 255, 0.5);
+            }
+
+            to {
+                box-shadow: 0 0 20px rgba(0, 247, 255, 0.8);
+            }
+        }
+
+        /* Futuristic scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.5);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(var(--primary), var(--secondary));
+            border-radius: 4px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .glass-card {
+                backdrop-filter: none;
+            }
+        }
+
+        /* Add this new style for the home button container */
+        .home-button-container {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Update the existing style for the home button */
+        .home-button {
+            display: flex;
+            align-items: center;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 9999px;
+            padding: 8px 16px;
+            color: #06b6d4;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .home-button:hover {
+            background: rgba(6, 182, 212, 0.2);
+            border-color: rgba(6, 182, 212, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .home-button i {
+            margin-right: 8px;
+        }
+
+        /* Ensure the sidebar doesn't overlap the home button */
+        .sidebar {
+            top: 80px !important;
+            height: calc(100vh - 80px) !important;
+        }
+
+        /* Adjust main content to account for the home button */
+        main {
+            margin-top: 60px;
+        }
+    </style>
+</head>
+
+<body class="gradient-bg">
+
+    <div class="home-button-container">
+        <a href="index.html" class="home-button">
+            <i class="fas fa-arrow-left"></i>
+            <span>Back to Home</span>
+        </a>
+    </div>
+    <!-- Interactive 3D Background -->
+    <div id="vanta-bg" class="fixed inset-0 -z-10"></div>
+
+    <!-- Home Navigation Button -->
+    <!-- <a href="index.html"
+        class="fixed top-4 left-4 z-50 flex items-center space-x-2 bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 rounded-full px-4 py-2 transition-all duration-300 glow-border">
+        <i class="fas fa-arrow-left text-cyan-400"></i>
+        <span class="text-sm font-medium">Back to Home</span>
+    </a> -->
+
+    <!-- AI Assistant Button -->
+    <button id="aiAssistant"
+        class="fixed bottom-24 right-6 z-40 w-14 h-14 rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 neon-pulse">
+        <i class="fas fa-robot text-white text-xl"></i>
+    </button>
+
+    <!-- AI Assistant Panel (Hidden by default) -->
+    <div id="aiPanel"
+        class="fixed bottom-32 right-6 w-80 bg-slate-800/90 backdrop-blur-md rounded-lg shadow-2xl border border-cyan-500/30 transform translate-y-10 opacity-0 pointer-events-none transition-all duration-300 z-50">
+        <div class="p-4 border-b border-slate-700 flex justify-between items-center">
+            <h3 class="font-semibold text-cyan-400 flex items-center">
+                <i class="fas fa-robot mr-2"></i> AutomateCore AI
+            </h3>
+            <button id="closeAI" class="text-gray-400 hover:text-white">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="p-4 max-h-64 overflow-y-auto">
+            <div class="flex mb-4">
+                <div class="w-8 h-8 rounded-full bg-cyan-500/10 flex items-center justify-center mr-3">
+                    <i class="fas fa-robot text-cyan-400 text-sm"></i>
+                </div>
+                <div class="flex-1 bg-slate-700/50 rounded-lg p-3">
+                    <p class="text-sm text-gray-300">Hello! I'm your AutomateCore assistant. How can I help you with
+                        your scheduling needs today?</p>
+                </div>
+            </div>
+        </div>
+        <div class="p-4 border-t border-slate-700">
+            <div class="relative">
+                <input type="text" placeholder="Ask me anything..."
+                    class="w-full bg-slate-700/50 border border-slate-600 rounded-lg px-4 py-2 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-500" />
+                <button class="absolute right-3 top-2 text-cyan-400">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex min-h-screen relative z-10">
+        <!-- Sidebar Navigation -->
+        <aside class="w-80 px-6 py-8 sidebar sticky top-0 h-screen overflow-y-auto hidden md:block">
+            <div class="flex items-center space-x-3 mb-8">
+                <div class="p-2 rounded-lg bg-gradient-to-br from-cyan-500 to-blue-600">
+                    <i class="fas fa-robot text-white text-xl"></i>
+                </div>
+                <h1 class="text-2xl font-bold gradient-text">AutomateCore</h1>
+            </div>
+
+            <!-- Interactive Search Box -->
+            <div class="mb-6 relative">
+                <input type="text" placeholder="Search documentation..."
+                    class="w-full px-4 py-2 rounded-lg bg-slate-800/70 border border-slate-700 text-white focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all duration-300"
+                    id="docSearch" />
+                <i class="fas fa-search absolute right-3 top-3 text-gray-400"></i>
+                <div id="searchResults"
+                    class="absolute left-0 right-0 mt-1 bg-slate-800 rounded-lg shadow-lg z-10 hidden max-h-80 overflow-y-auto">
+                </div>
+            </div>
+
+            <nav class="space-y-1 text-sm">
+                <div class="mb-4">
+                    <h3 class="text-xs uppercase font-semibold text-gray-400 mb-2 tracking-wider flex items-center">
+                        <span>Getting Started</span>
+                        <span class="ml-auto text-cyan-400 text-xs bg-cyan-500/10 px-2 py-0.5 rounded-full">New</span>
+                    </h3>
+                    <a href="#overview"
+                        class="block px-3 py-2 rounded-lg hover:bg-slate-800 transition flex items-center space-x-2 group">
+                        <div class="w-5 h-5 flex items-center justify-center">
+                            <i class="fas fa-play-circle text-cyan-400 group-hover:scale-110 transition-transform"></i>
+                        </div>
+                        <span>Overview</span>
+                    </a>
+                    <a href="#quickstart"
+                        class="block px-3 py-2 rounded-lg hover:bg-slate-800 transition flex items-center space-x-2 group">
+                        <div class="w-5 h-5 flex items-center justify-center">
+                            <i class="fas fa-bolt text-yellow-400 group-hover:scale-110 transition-transform"></i>
+                        </div>
+                        <span>Quick Start</span>
+                    </a>
+                </div>
+
+                <div class="mb-4">
+                    <h3 class="text-xs uppercase font-semibold text-gray-400 mb-2 tracking-wider">Core Components</h3>
+                    <a href="#scheduler-config"
+                        class="block px-3 py-2 rounded-lg hover:bg-slate-800 transition flex items-center space-x-2 group">
+                        <div class="w-5 h-5 flex items-center justify-center">
+                            <i class="fas fa-cog text-blue-400 group-hover:rotate-90 transition-transform"></i>
+                        </div>
+                        <span>SchedulerConfig</span>
+                    </a>
+                    <a href="#scheduler-engine"
+                        class="block px-3 py-2 rounded-lg hover:bg-slate-800 transition flex items-center space-x-2 group">
+                        <div class="w-5 h-5 flex items-center justify-center">
+                            <i
+                                class="fas fa-tachometer-alt text-purple-400 group-hover:scale-110 transition-transform"></i>
+                        </div>
+                        <span>SchedulerEngine</span>
+                    </a>
+                    <a href="#schedule-types"
+                        class="block px-3 py-2 rounded-lg hover:bg-slate-800 transition flex items-center space-x-2 group">
+                        <div class="w-5 h-5 flex items-center justify-center">
+                            <i
+                                class="fas fa-calendar-alt text-green-400 group-hover:scale-110 transition-transform"></i>
+                        </div>
+                        <span>Schedule Types</span>
+                    </a>
+                    <a href="#task-interface"
+                        class="block px-3 py-2 rounded-lg hover:bg-slate-800 transition flex items-center space-x-2 group">
+                        <div class="w-5 h-5 flex items-center justify-center">
+                            <i class="fas fa-code text-yellow-400 group-hover:scale-110 transition-transform"></i>
+                        </div>
+                        <span>IScheduledTask</span>
+                    </a>
+                </div>
+
+                <div class="mb-4">
+                    <h3 class="text-xs uppercase font-semibold text-gray-400 mb-2 tracking-wider">Advanced</h3>
+                    <a href="#config-loading"
+                        class="block px-3 py-2 rounded-lg hover:bg-slate-800 transition flex items-center space-x-2 group">
+                        <div class="w-5 h-5 flex items-center justify-center">
+                            <i class="fas fa-file-code text-indigo-400 group-hover:scale-110 transition-transform"></i>
+                        </div>
+                        <span>Config Loading</span>
+                    </a>
+                    <a href="#examples"
+                        class="block px-3 py-2 rounded-lg hover:bg-slate-800 transition flex items-center space-x-2 group">
+                        <div class="w-5 h-5 flex items-center justify-center">
+                            <i class="fas fa-laptop-code text-pink-400 group-hover:scale-110 transition-transform"></i>
+                        </div>
+                        <span>Code Examples</span>
+                    </a>
+                    <a href="#api-reference"
+                        class="block px-3 py-2 rounded-lg hover:bg-slate-800 transition flex items-center space-x-2 group">
+                        <div class="w-5 h-5 flex items-center justify-center">
+                            <i class="fas fa-book text-red-400 group-hover:scale-110 transition-transform"></i>
+                        </div>
+                        <span>API Reference</span>
+                    </a>
+                    <a href="#ai-integration"
+                        class="block px-3 py-2 rounded-lg hover:bg-slate-800 transition flex items-center space-x-2 group">
+                        <div class="w-5 h-5 flex items-center justify-center">
+                            <i class="fas fa-brain text-cyan-400 group-hover:scale-110 transition-transform"></i>
+                        </div>
+                        <span>AI Integration</span>
+                    </a>
+                </div>
+
+                <div class="mb-4">
+                    <h3 class="text-xs uppercase font-semibold text-gray-400 mb-2 tracking-wider">Resources</h3>
+                    <a href="#faqs"
+                        class="block px-3 py-2 rounded-lg hover:bg-slate-800 transition flex items-center space-x-2 group">
+                        <div class="w-5 h-5 flex items-center justify-center">
+                            <i
+                                class="fas fa-question-circle text-orange-400 group-hover:scale-110 transition-transform"></i>
+                        </div>
+                        <span>FAQs</span>
+                    </a>
+                    <a href="#changelog"
+                        class="block px-3 py-2 rounded-lg hover:bg-slate-800 transition flex items-center space-x-2 group">
+                        <div class="w-5 h-5 flex items-center justify-center">
+                            <i class="fas fa-history text-teal-400 group-hover:scale-110 transition-transform"></i>
+                        </div>
+                        <span>Changelog</span>
+                    </a>
+                    <a href="https://github.com/gauravt-cf/AutomateCore" target="_blank"
+                        class="block px-3 py-2 rounded-lg hover:bg-slate-800 transition flex items-center space-x-2 group">
+                        <div class="w-5 h-5 flex items-center justify-center">
+                            <i class="fab fa-github text-white group-hover:scale-110 transition-transform"></i>
+                        </div>
+                        <span>GitHub Repo</span>
+                    </a>
+                </div>
+            </nav>
+
+            <div class="mt-8 pt-6 border-t border-slate-700">
+                <div class="flex items-center space-x-3">
+                    <div class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
+                    <span class="text-xs text-gray-400">Version 2.1.0</span>
+                </div>
+                <div class="mt-2 text-xs text-gray-500">Last updated: 2023-11-15</div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 px-4 py-8 md:px-10 md:py-12 space-y-16 max-w-5xl mx-auto">
+            <!-- Overview Section with Interactive Demo -->
+            <section id="overview" class="glass-card p-8 relative overflow-hidden">
+                <div class="absolute -right-20 -top-20 w-40 h-40 rounded-full bg-cyan-500/10 filter blur-3xl"></div>
+                <div class="absolute -left-20 -bottom-20 w-40 h-40 rounded-full bg-blue-500/10 filter blur-3xl"></div>
+
+                <div class="flex flex-col md:flex-row items-center relative z-10">
+                    <div class="md:w-2/3">
+                        <h2 class="text-4xl font-bold mb-4 gradient-text">AutomateCore Documentation</h2>
+                        <p class="text-lg text-gray-300 mb-6">
+                            Powerful task scheduling framework for .NET applications with AI-powered optimizations and
+                            futuristic monitoring capabilities.
+                        </p>
+                        <div class="flex flex-wrap gap-3 mb-6">
+                            <span class="px-3 py-1 rounded-full bg-slate-800 text-sm text-cyan-400 flex items-center">
+                                <i class="fas fa-bolt mr-1"></i> v2.1.0
+                            </span>
+                            <span class="px-3 py-1 rounded-full bg-slate-800 text-sm text-blue-400 flex items-center">
+                                <i class="fab fa-windows mr-1"></i> .NET 6+
+                            </span>
+                            <span class="px-3 py-1 rounded-full bg-slate-800 text-sm text-purple-400 flex items-center">
+                                <i class="fas fa-lock-open mr-1"></i> MIT License
+                            </span>
+                            <span class="px-3 py-1 rounded-full bg-slate-800 text-sm text-green-400 flex items-center">
+                                <i class="fas fa-brain mr-1"></i> AI-Powered
+                            </span>
+                        </div>
+                        <div class="flex flex-wrap gap-3">
+                            <a href="#quickstart"
+                                class="px-6 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-lg font-medium hover:opacity-90 transition flex items-center">
+                                <i class="fas fa-bolt mr-2"></i> Quick Start
+                            </a>
+                            <a href="#examples"
+                                class="px-6 py-2 border border-cyan-500 text-cyan-400 rounded-lg font-medium hover:bg-cyan-500/10 transition flex items-center">
+                                <i class="fas fa-code mr-2"></i> View Examples
+                            </a>
+                            <a href="#ai-integration"
+                                class="px-6 py-2 border border-pink-500 text-pink-400 rounded-lg font-medium hover:bg-pink-500/10 transition flex items-center">
+                                <i class="fas fa-brain mr-2"></i> AI Features
+                            </a>
+                        </div>
+                    </div>
+                    <div class="md:w-1/3 mt-8 md:mt-0 flex justify-center">
+                        <div class="relative floating">
+                            <div
+                                class="w-48 h-48 rounded-full bg-gradient-to-br from-cyan-500/20 to-blue-600/20 absolute -inset-1 blur-lg">
+                            </div>
+                            <div
+                                class="w-48 h-48 rounded-full bg-slate-800/50 border border-cyan-500/20 flex items-center justify-center relative">
+                                <i class="fas fa-robot text-6xl gradient-text"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interactive Demo Section -->
+            <section id="interactive-demo" class="glass-card p-8">
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center">
+                        <i class="fas fa-play-circle text-purple-400"></i>
+                    </div>
+                    <h2 class="text-3xl font-semibold">Interactive Demo</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <div class="terminal-header px-4 py-3 flex items-center">
+                            <div class="flex space-x-2 mr-4">
+                                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                            </div>
+                            <span class="text-sm font-mono text-gray-300">demo-config.json</span>
+                        </div>
+                        <div class="terminal-body p-4">
+                            <pre class="text-sm"><code id="demoConfig">{
+  "taskName": "DataSync",
+  "scheduleType": "Interval",
+  "interval": "00:15:00",
+  "enabled": true
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="terminal-header px-4 py-3 flex items-center">
+                            <div class="flex space-x-2 mr-4">
+                                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                            </div>
+                            <span class="text-sm font-mono text-gray-300">Task Execution Log</span>
+                        </div>
+                        <div class="terminal-body p-4 h-full">
+                            <div id="demoLog" class="text-sm font-mono text-gray-300 h-40 overflow-y-auto">
+                                <div class="text-green-400">[INFO] Task initialized</div>
+                                <div class="text-cyan-400">[DEBUG] Next run at 15:30:00</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap gap-3">
+                    <button id="runDemo"
+                        class="px-4 py-2 bg-green-600 hover:bg-green-700 rounded-lg text-sm flex items-center">
+                        <i class="fas fa-play mr-2"></i> Run Demo
+                    </button>
+                    <button id="pauseDemo"
+                        class="px-4 py-2 bg-yellow-600 hover:bg-yellow-700 rounded-lg text-sm flex items-center">
+                        <i class="fas fa-pause mr-2"></i> Pause
+                    </button>
+                    <button id="resetDemo"
+                        class="px-4 py-2 bg-red-600 hover:bg-red-700 rounded-lg text-sm flex items-center">
+                        <i class="fas fa-redo mr-2"></i> Reset
+                    </button>
+                    <select id="demoType"
+                        class="px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-cyan-500">
+                        <option value="interval">Interval (15 min)</option>
+                        <option value="daily">Daily (3:30 PM)</option>
+                        <option value="weekly">Weekly (Mon/Fri)</option>
+                        <option value="hourly">Hourly (:30)</option>
+                    </select>
+                </div>
+            </section>
+
+            <!-- Quick Start Section -->
+            <section id="quickstart" class="glass-card p-8">
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="w-10 h-10 rounded-lg bg-yellow-500/10 flex items-center justify-center">
+                        <i class="fas fa-bolt text-yellow-400"></i>
+                    </div>
+                    <h2 class="text-3xl font-semibold">Quick Start</h2>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="flex flex-col md:flex-row gap-6">
+                        <div class="md:w-1/2">
+                            <h3 class="text-xl font-semibold mb-3 text-cyan-400">1. Install Package</h3>
+                            <div class="code-block p-4 mb-4">
+                                <div class="text-gray-400"># Using .NET CLI</div>
+                                <div class="text-purple-300">dotnet</div>
+                                <div class="text-gray-200">add</div>
+                                <div class="text-gray-200">package</div>
+                                <div class="text-green-400">AutomateCore</div>
+                            </div>
+                            <p class="text-gray-300 text-sm">Or install via NuGet Package Manager in Visual Studio</p>
+                        </div>
+
+                        <div class="md:w-1/2">
+                            <h3 class="text-xl font-semibold mb-3 text-cyan-400">2. Create Task</h3>
+                            <div class="code-block p-4">
+                                <div class="text-blue-300">public</div>
+                                <div class="text-blue-300">class</div>
+                                <div class="text-cyan-300">DemoTask</div> : <div class="text-cyan-300">IScheduledTask
+                                </div><br>
+                                {<br>
+                                &nbsp;&nbsp;<div class="text-blue-300">public</div>
+                                <div class="text-blue-300">async</div>
+                                <div class="text-blue-300">Task</div>
+                                <div class="text-yellow-300">ExecuteAsync</div>(<div class="text-cyan-300">
+                                    CancellationToken</div>
+                                <div class="text-gray-200">ct</div>)<br>
+                                &nbsp;&nbsp;{<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<div class="text-green-300">// Your task logic here</div><br>
+                                &nbsp;&nbsp;}<br>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row gap-6">
+                        <div class="md:w-1/2">
+                            <h3 class="text-xl font-semibold mb-3 text-cyan-400">3. Configure Schedule</h3>
+                            <div class="code-block p-4">
+                                <div class="text-gray-400">// In appsettings.json</div>
+                                {<br>
+                                &nbsp;&nbsp;<div class="text-green-400">"Scheduler"</div>: {<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<div class="text-green-400">"Tasks"</div>: [{<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="text-green-400">"TaskName"</div>: <div
+                                    class="text-green-400">"DemoTask"</div>,<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="text-green-400">"ScheduleType"</div>:
+                                <div class="text-green-400">"Daily"</div>,<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="text-green-400">"Hour"</div>: <div
+                                    class="text-orange-400">15</div>,<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="text-green-400">"Minute"</div>: <div
+                                    class="text-orange-400">30</div><br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;}]<br>
+                                &nbsp;&nbsp;}<br>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="md:w-1/2">
+                            <h3 class="text-xl font-semibold mb-3 text-cyan-400">4. Register Services</h3>
+                            <div class="code-block p-4">
+                                <div class="text-gray-400">// In Program.cs</div>
+                                <div class="text-gray-200">builder</div>.<div class="text-gray-200">Services</div>.<div
+                                    class="text-yellow-300">AddAutomateCore</div>();<br>
+                                <div class="text-gray-200">builder</div>.<div class="text-gray-200">Services</div>.<div
+                                    class="text-yellow-300">AddScheduledTask</div>&lt;<div class="text-cyan-300">
+                                    DemoTask</div>&gt;();<br>
+                                <div class="text-gray-200">builder</div>.<div class="text-gray-200">Services</div>.<div
+                                    class="text-yellow-300">Configure</div>&lt;<div class="text-cyan-300">
+                                    SchedulerOptions</div>&gt;(<br>
+                                &nbsp;&nbsp;<div class="text-gray-200">builder</div>.<div class="text-gray-200">
+                                    Configuration</div>.<div class="text-yellow-300">GetSection</div>(<div
+                                    class="text-green-400">"Scheduler"</div>));
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-4">
+                        <div class="flex items-center text-green-400 mb-2">
+                            <i class="fas fa-check-circle mr-2"></i>
+                            <span class="font-medium">You're all set!</span>
+                        </div>
+                        <p class="text-gray-300 text-sm">
+                            The scheduler will automatically start when your application launches. View the <a
+                                href="#examples" class="text-cyan-400 hover:underline">examples</a> for more advanced
+                            scenarios.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- AI Integration Section -->
+            <section id="ai-integration" class="glass-card p-8">
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="w-10 h-10 rounded-lg bg-green-500/10 flex items-center justify-center">
+                        <i class="fas fa-brain text-green-400"></i>
+                    </div>
+                    <h2 class="text-3xl font-semibold">AI-Powered Features</h2>
+                </div>
+
+                <p class="text-gray-300 mb-6">
+                    AutomateCore now includes cutting-edge AI capabilities to optimize your scheduling patterns and
+                    predict optimal execution times.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-slate-800/50 border border-green-500/20 rounded-lg p-5">
+                        <div class="flex items-center mb-3">
+                            <div class="w-8 h-8 rounded-md bg-green-500/10 flex items-center justify-center mr-3">
+                                <i class="fas fa-chart-line text-green-400"></i>
+                            </div>
+                            <h3 class="font-semibold text-lg">Performance Optimization</h3>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-3">
+                            Our AI analyzes your task execution patterns and suggests optimal schedules to reduce
+                            resource usage.
+                        </p>
+                        <div class="code-block p-3 text-xs">
+                            <div class="text-gray-500">// Suggested optimization</div>
+                            <div class="text-cyan-300">Current</div>: Every 15 minutes<br>
+                            <div class="text-green-400">Optimized</div>: Every 17-23 minutes (dynamic)
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800/50 border border-blue-500/20 rounded-lg p-5">
+                        <div class="flex items-center mb-3">
+                            <div class="w-8 h-8 rounded-md bg-blue-500/10 flex items-center justify-center mr-3">
+                                <i class="fas fa-clock text-blue-400"></i>
+                            </div>
+                            <h3 class="font-semibold text-lg">Predictive Scheduling</h3>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-3">
+                            The system learns your application's usage patterns and adjusts schedules during low-traffic
+                            periods.
+                        </p>
+                        <div class="code-block p-3 text-xs">
+                            <div class="text-gray-500">// Predictive adjustment</div>
+                            <div class="text-cyan-300">Original</div>: 3:00 AM daily<br>
+                            <div class="text-green-400">Adjusted</div>: 2:45-3:15 AM (dynamic window)
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800/50 border border-purple-500/20 rounded-lg p-5">
+                        <div class="flex items-center mb-3">
+                            <div class="w-8 h-8 rounded-md bg-purple-500/10 flex items-center justify-center mr-3">
+                                <i class="fas fa-exclamation-triangle text-purple-400"></i>
+                            </div>
+                            <h3 class="font-semibold text-lg">Failure Prediction</h3>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-3">
+                            Machine learning models predict potential failures and automatically adjust retry
+                            strategies.
+                        </p>
+                        <div class="code-block p-3 text-xs">
+                            <div class="text-gray-500">// Failure prediction</div>
+                            <div class="text-cyan-300">Detected</div>: DB connection issues at 9:00 AM<br>
+                            <div class="text-green-400">Action</div>: Delayed next attempt by 15 minutes
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800/50 border border-cyan-500/20 rounded-lg p-5">
+                        <div class="flex items-center mb-3">
+                            <div class="w-8 h-8 rounded-md bg-cyan-500/10 flex items-center justify-center mr-3">
+                                <i class="fas fa-robot text-cyan-400"></i>
+                            </div>
+                            <h3 class="font-semibold text-lg">AI Assistant</h3>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-3">
+                            Integrated AI chatbot helps troubleshoot issues and suggests configuration improvements.
+                        </p>
+                        <button id="tryAssistant"
+                            class="mt-2 px-3 py-1 bg-cyan-600 hover:bg-cyan-700 rounded text-xs flex items-center">
+                            <i class="fas fa-comment-alt mr-1"></i> Try Assistant
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-4">
+                    <div class="flex items-center text-yellow-400 mb-2">
+                        <i class="fas fa-lightbulb mr-2"></i>
+                        <span class="font-medium">How to Enable AI Features</span>
+                    </div>
+                    <p class="text-gray-300 text-sm mb-3">
+                        Add the AI package and configure in your Program.cs:
+                    </p>
+                    <div class="code-block p-3 text-xs mb-2">
+                        <div class="text-purple-300">dotnet</div>
+                        <div class="text-gray-200">add</div>
+                        <div class="text-gray-200">package</div>
+                        <div class="text-green-400">AutomateCore.AI</div>
+                    </div>
+                    <div class="code-block p-3 text-xs">
+                        <div class="text-gray-200">builder</div>.<div class="text-gray-200">Services</div>.<div
+                            class="text-yellow-300">AddAutomateCoreAI</div>();
+                    </div>
+                </div>
+            </section>
+
+            <!-- Features Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="feature-card glass-card p-6 rounded-xl">
+                    <div class="w-12 h-12 rounded-lg bg-cyan-500/10 flex items-center justify-center mb-4">
+                        <i class="fas fa-bolt text-cyan-400 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Lightning Fast</h3>
+                    <p class="text-gray-400">Optimized scheduler engine with minimal overhead for high-performance task
+                        execution.</p>
+                </div>
+
+                <div class="feature-card glass-card p-6 rounded-xl">
+                    <div class="w-12 h-12 rounded-lg bg-blue-500/10 flex items-center justify-center mb-4">
+                        <i class="fas fa-sliders-h text-blue-400 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Flexible Configuration</h3>
+                    <p class="text-gray-400">Multiple schedule types with extensive configuration options for precise
+                        control.</p>
+                </div>
+
+                <div class="feature-card glass-card p-6 rounded-xl">
+                    <div class="w-12 h-12 rounded-lg bg-purple-500/10 flex items-center justify-center mb-4">
+                        <i class="fas fa-shield-alt text-purple-400 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Reliable Execution</h3>
+                    <p class="text-gray-400">Built-in error handling and retry mechanisms for mission-critical tasks.
+                    </p>
+                </div>
+
+                <div class="feature-card glass-card p-6 rounded-xl">
+                    <div class="w-12 h-12 rounded-lg bg-green-500/10 flex items-center justify-center mb-4">
+                        <i class="fas fa-plug text-green-400 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Extensible</h3>
+                    <p class="text-gray-400">Easy to extend with custom task types and execution strategies.</p>
+                </div>
+
+                <div class="feature-card glass-card p-6 rounded-xl">
+                    <div class="w-12 h-12 rounded-lg bg-yellow-500/10 flex items-center justify-center mb-4">
+                        <i class="fas fa-file-code text-yellow-400 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Clean API</h3>
+                    <p class="text-gray-400">Simple, intuitive interface that's easy to integrate into any application.
+                    </p>
+                </div>
+
+                <div class="feature-card glass-card p-6 rounded-xl">
+                    <div class="w-12 h-12 rounded-lg bg-pink-500/10 flex items-center justify-center mb-4">
+                        <i class="fas fa-tachometer-alt text-pink-400 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Monitoring</h3>
+                    <p class="text-gray-400">Built-in health checks and execution metrics for observability.</p>
+                </div>
+            </div>
+
+            <!-- Documentation Sections -->
+            <section id="scheduler-config" class="glass-card p-8">
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center">
+                        <i class="fas fa-cog text-blue-400"></i>
+                    </div>
+                    <h2 class="text-3xl font-semibold">SchedulerConfig</h2>
+                </div>
+                <p class="text-gray-300 leading-relaxed mb-6">
+                    The <span class="text-blue-400 font-medium">SchedulerConfig</span> class is responsible for parsing
+                    and representing the configuration values for each scheduler task. It provides strongly-typed access
+                    to all scheduler settings.
+                </p>
+
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold mb-3 text-cyan-400">Key Properties</h3>
+                    <div class="code-block p-4 mb-4">
+                        <div class="text-gray-400">// Configuration properties</div>
+                        <div class="text-blue-300">public</div>
+                        <div class="text-purple-300">string</div>
+                        <div class="text-gray-200">TaskName</div> { <div class="text-blue-300">get</div>; <div
+                            class="text-blue-300">set</div>; }<br>
+                        <div class="text-blue-300">public</div>
+                        <div class="text-purple-300">ScheduleType</div>
+                        <div class="text-gray-200">Type</div> { <div class="text-blue-300">get</div>; <div
+                            class="text-blue-300">set</div>; }<br>
+                        <div class="text-blue-300">public</div>
+                        <div class="text-purple-300">bool</div>
+                        <div class="text-gray-200">Enabled</div> { <div class="text-blue-300">get</div>; <div
+                            class="text-blue-300">set</div>; }<br>
+                        <div class="text-blue-300">public</div>
+                        <div class="text-purple-300">TimeSpan</div>
+                        <div class="text-gray-200">Interval</div> { <div class="text-blue-300">get</div>; <div
+                            class="text-blue-300">set</div>; }<br>
+                        <div class="text-blue-300">public</div>
+                        <div class="text-purple-300">DateTime</div>? <div class="text-gray-200">StartTime</div> { <div
+                            class="text-blue-300">get</div>; <div class="text-blue-300">set</div>; }
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-4">
+                    <div class="flex items-center text-yellow-400 mb-2">
+                        <i class="fas fa-lightbulb mr-2"></i>
+                        <span class="font-medium">Pro Tip</span>
+                    </div>
+                    <p class="text-gray-300 text-sm">
+                        Use the <span class="text-blue-400">Validate()</span> method to ensure your configuration is
+                        correct before passing it to the SchedulerEngine.
+                    </p>
+                </div>
+            </section>
+
+            <section id="scheduler-engine" class="glass-card p-8">
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center">
+                        <i class="fas fa-tachometer-alt text-purple-400"></i>
+                    </div>
+                    <h2 class="text-3xl font-semibold">SchedulerEngine</h2>
+                </div>
+                <p class="text-gray-300 leading-relaxed mb-6">
+                    The <span class="text-purple-400 font-medium">SchedulerEngine</span> is the core component that
+                    manages task initialization, lifecycle, and execution timing. It coordinates between the
+                    configuration and task implementations.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div class="code-block p-4">
+                        <div class="text-gray-400">// Initialization</div>
+                        <div class="text-blue-300">var</div>
+                        <div class="text-gray-200">engine</div> = <div class="text-blue-300">new</div>
+                        <div class="text-cyan-300">SchedulerEngine</div>(config);<br>
+                        <div class="text-gray-200">engine</div>.<div class="text-yellow-300">RegisterTask</div>(<div
+                            class="text-blue-300">new</div>
+                        <div class="text-cyan-300">MyScheduledTask</div>());<br>
+                        <div class="text-gray-200">engine</div>.<div class="text-yellow-300">Start</div>();
+                    </div>
+
+                    <div class="code-block p-4">
+                        <div class="text-gray-400">// Lifecycle Management</div>
+                        <div class="text-gray-200">engine</div>.<div class="text-yellow-300">Pause</div>(); <div
+                            class="text-gray-500">// Pause execution</div><br>
+                        <div class="text-gray-200">engine</div>.<div class="text-yellow-300">Resume</div>(); <div
+                            class="text-gray-500">// Resume execution</div><br>
+                        <div class="text-gray-200">engine</div>.<div class="text-yellow-300">Stop</div>(); <div
+                            class="text-gray-500">// Graceful shutdown</div>
+                    </div>
+                </div>
+
+                <div class="flex items-start bg-slate-800/50 border border-slate-700 rounded-lg p-4">
+                    <div class="text-green-400 mr-3 mt-1">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div>
+                        <p class="text-gray-300 text-sm">
+                            The engine automatically handles task execution timing, error recovery, and resource
+                            management, allowing you to focus on your task logic.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="schedule-types" class="glass-card p-8">
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="w-10 h-10 rounded-lg bg-green-500/10 flex items-center justify-center">
+                        <i class="fas fa-calendar-alt text-green-400"></i>
+                    </div>
+                    <h2 class="text-3xl font-semibold">Schedule Types</h2>
+                </div>
+                <p class="text-gray-300 leading-relaxed mb-6">
+                    AutomateCore supports multiple scheduling patterns to accommodate various use cases. Choose the one
+                    that fits your requirements.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-5">
+                        <div class="flex items-center mb-3">
+                            <div class="w-8 h-8 rounded-md bg-blue-500/10 flex items-center justify-center mr-3">
+                                <i class="fas fa-clock text-blue-400 text-sm"></i>
+                            </div>
+                            <h3 class="font-semibold text-lg">Hourly</h3>
+                        </div>
+                        <p class="text-gray-400 text-sm">Execute every hour at a specific minute mark.</p>
+                        <div class="mt-3 code-block p-3 text-xs">
+                            <div class="text-gray-500">// Every hour at 30 minutes past</div>
+                            <div class="text-cyan-300">scheduleType</div>=<div class="text-green-400">"Hourly"</div>
+                            <div class="text-cyan-300">minute</div>=<div class="text-orange-400">30</div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-5">
+                        <div class="flex items-center mb-3">
+                            <div class="w-8 h-8 rounded-md bg-purple-500/10 flex items-center justify-center mr-3">
+                                <i class="fas fa-sun text-purple-400 text-sm"></i>
+                            </div>
+                            <h3 class="font-semibold text-lg">Daily</h3>
+                        </div>
+                        <p class="text-gray-400 text-sm">Run once per day at a specified time.</p>
+                        <div class="mt-3 code-block p-3 text-xs">
+                            <div class="text-gray-500">// Daily at 3:15 PM</div>
+                            <div class="text-cyan-300">scheduleType</div>=<div class="text-green-400">"Daily"</div>
+                            <div class="text-cyan-300">hour</div>=<div class="text-orange-400">15</div>
+                            <div class="text-cyan-300">minute</div>=<div class="text-orange-400">15</div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-5">
+                        <div class="flex items-center mb-3">
+                            <div class="w-8 h-8 rounded-md bg-cyan-500/10 flex items-center justify-center mr-3">
+                                <i class="fas fa-calendar-week text-cyan-400 text-sm"></i>
+                            </div>
+                            <h3 class="font-semibold text-lg">Weekly</h3>
+                        </div>
+                        <p class="text-gray-400 text-sm">Execute on specific days of the week.</p>
+                        <div class="mt-3 code-block p-3 text-xs">
+                            <div class="text-gray-500">// Every Monday and Thursday at 9:00 AM</div>
+                            <div class="text-cyan-300">scheduleType</div>=<div class="text-green-400">"Weekly"</div>
+                            <div class="text-cyan-300">days</div>=<div class="text-green-400">"Monday,Thursday"</div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-5">
+                        <div class="flex items-center mb-3">
+                            <div class="w-8 h-8 rounded-md bg-yellow-500/10 flex items-center justify-center mr-3">
+                                <i class="fas fa-calendar-day text-yellow-400 text-sm"></i>
+                            </div>
+                            <h3 class="font-semibold text-lg">Monthly</h3>
+                        </div>
+                        <p class="text-gray-400 text-sm">Run on a fixed day each month.</p>
+                        <div class="mt-3 code-block p-3 text-xs">
+                            <div class="text-gray-500">// 15th of each month at midnight</div>
+                            <div class="text-cyan-300">scheduleType</div>=<div class="text-green-400">"Monthly"</div>
+                            <div class="text-cyan-300">day</div>=<div class="text-orange-400">15</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="task-interface" class="glass-card p-8">
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="w-10 h-10 rounded-lg bg-yellow-500/10 flex items-center justify-center">
+                        <i class="fas fa-code text-yellow-400"></i>
+                    </div>
+                    <h2 class="text-3xl font-semibold">IScheduledTask</h2>
+                </div>
+                <p class="text-gray-300 leading-relaxed mb-6">
+                    The <span class="text-yellow-400 font-medium">IScheduledTask</span> interface defines the contract
+                    for all scheduled tasks. Implement this interface to create your custom tasks.
+                </p>
+
+                <div id="interface-def" class="mb-8">
+                    <h3 class="text-xl font-semibold mb-3 text-cyan-400">Interface Definition</h3>
+                    <div class="code-block p-4 mb-4">
+                        <div class="text-blue-300">public</div>
+                        <div class="text-blue-300">interface</div>
+                        <div class="text-cyan-300">IScheduledTask</div><br>
+                        {<br>
+                        &nbsp;&nbsp;<div class="text-blue-300">Task</div>
+                        <div class="text-yellow-300">ExecuteAsync</div>(<div class="text-cyan-300">CancellationToken
+                        </div>
+                        <div class="text-gray-200">cancellationToken</div>);<br>
+                        }
+                    </div>
+                </div>
+
+                <div id="task-usage" class="mb-8">
+                    <h3 class="text-xl font-semibold mb-3 text-cyan-400">Implementation Example</h3>
+                    <p class="text-gray-300 mb-3">
+                        Here's a complete example of a task that performs database cleanup:
+                    </p>
+                    <div class="code-block p-4 mb-4">
+                        <div class="text-blue-300">public</div>
+                        <div class="text-blue-300">class</div>
+                        <div class="text-cyan-300">CleanupTask</div> : <div class="text-cyan-300">IScheduledTask</div>
+                        <br>
+                        {<br>
+                        &nbsp;&nbsp;<div class="text-blue-300">private</div>
+                        <div class="text-blue-300">readonly</div>
+                        <div class="text-cyan-300">ILogger</div>&lt;<div class="text-cyan-300">CleanupTask</div>&gt;
+                        <div class="text-gray-200">_logger</div>;<br>
+                        &nbsp;&nbsp;<div class="text-blue-300">private</div>
+                        <div class="text-blue-300">readonly</div>
+                        <div class="text-cyan-300">DatabaseContext</div>
+                        <div class="text-gray-200">_dbContext</div>;<br><br>
+                        &nbsp;&nbsp;<div class="text-blue-300">public</div>
+                        <div class="text-yellow-300">CleanupTask</div>(<div class="text-cyan-300">ILogger</div>&lt;<div
+                            class="text-cyan-300">CleanupTask</div>&gt; <div class="text-gray-200">logger</div>, <div
+                            class="text-cyan-300">DatabaseContext</div>
+                        <div class="text-gray-200">dbContext</div>)<br>
+                        &nbsp;&nbsp;{<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<div class="text-gray-200">_logger</div> = <div class="text-gray-200">
+                            logger</div>;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<div class="text-gray-200">_dbContext</div> = <div
+                            class="text-gray-200">dbContext</div>;<br>
+                        &nbsp;&nbsp;}<br><br>
+                        &nbsp;&nbsp;<div class="text-blue-300">public</div>
+                        <div class="text-blue-300">async</div>
+                        <div class="text-blue-300">Task</div>
+                        <div class="text-yellow-300">ExecuteAsync</div>(<div class="text-cyan-300">CancellationToken
+                        </div>
+                        <div class="text-gray-200">cancellationToken</div>)<br>
+                        &nbsp;&nbsp;{<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<div class="text-gray-200">_logger</div>.<div class="text-yellow-300">
+                            LogInformation</div>(<div class="text-green-400">"Starting database cleanup at {Time}"</div>
+                        , <div class="text-cyan-300">DateTime</div>.<div class="text-yellow-300">Now</div>);<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<div class="text-green-300">// Cleanup logic here</div><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<div class="text-blue-300">await</div>
+                        <div class="text-gray-200">_dbContext</div>.<div class="text-yellow-300">SaveChangesAsync</div>(
+                        <div class="text-gray-200">cancellationToken</div>);<br>
+                        &nbsp;&nbsp;}<br>
+                        }
+                    </div>
+
+                    <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-4">
+                        <div class="flex items-center text-blue-400 mb-2">
+                            <i class="fas fa-info-circle mr-2"></i>
+                            <span class="font-medium">Dependency Injection</span>
+                        </div>
+                        <p class="text-gray-300 text-sm">
+                            Tasks support constructor injection, so you can easily inject services like ILogger,
+                            DbContext, or any other registered service.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="config-loading" class="glass-card p-8">
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="w-10 h-10 rounded-lg bg-indigo-500/10 flex items-center justify-center">
+                        <i class="fas fa-file-code text-indigo-400"></i>
+                    </div>
+                    <h2 class="text-3xl font-semibold">Config Loading</h2>
+                </div>
+                <p class="text-gray-300 leading-relaxed mb-6">
+                    AutomateCore supports configuration through .config files (for legacy apps) and appsettings.json
+                    (for modern apps).
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <h3 class="text-xl font-semibold mb-3 text-cyan-400">app.config/.web.config</h3>
+                        <div class="code-block p-4 text-sm">
+                            <div class="text-gray-500">&lt;!-- XML config example --&gt;</div>
+                            &lt;<div class="text-pink-400">configuration</div>&gt;<br>
+                            &nbsp;&nbsp;&lt;<div class="text-pink-400">configSections</div>&gt;<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&lt;<div class="text-pink-400">section</div>
+                            <div class="text-cyan-300">name</div>=<div class="text-green-400">"schedulerSettings"</div>
+                            <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="text-cyan-300">type
+                            </div>=<div class="text-green-400">"AutomateCore.Configuration.SchedulerConfigSection,
+                                AutomateCore"</div>/&gt;<br>
+                            &nbsp;&nbsp;&lt;/<div class="text-pink-400">configSections</div>&gt;<br><br>
+                            &nbsp;&nbsp;&lt;<div class="text-pink-400">schedulerSettings</div>&gt;<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&lt;<div class="text-pink-400">add</div>
+                            <div class="text-cyan-300">scheduleType</div>=<div class="text-green-400">"Daily"</div>
+                            <div class="text-cyan-300">enabled</div>=<div class="text-green-400">"true"</div><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="text-cyan-300">hour</div>=
+                            <div class="text-green-400">"14"</div>
+                            <div class="text-cyan-300">minute</div>=<div class="text-green-400">"30"</div>/&gt;<br>
+                            &nbsp;&nbsp;&lt;/<div class="text-pink-400">schedulerSettings</div>&gt;<br>
+                            &lt;/<div class="text-pink-400">configuration</div>&gt;
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-semibold mb-3 text-cyan-400">appsettings.json</h3>
+                        <div class="code-block p-4 text-sm">
+                            <div class="text-gray-500">// JSON config example</div>
+                            {<br>
+                            &nbsp;&nbsp;<div class="text-green-400">"SchedulerSettings"</div>: {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<div class="text-green-400">"Tasks"</div>: [<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="text-green-400">"TaskName"</div>
+                            : <div class="text-green-400">"DatabaseCleanup"</div>,<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="text-green-400">"ScheduleType"
+                            </div>: <div class="text-green-400">"Daily"</div>,<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="text-green-400">"Hour"</div>:
+                            <div class="text-orange-400">2</div>,<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="text-green-400">"Minute"</div>:
+                            <div class="text-orange-400">30</div><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;]<br>
+                            &nbsp;&nbsp;}<br>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="examples" class="glass-card p-8">
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="w-10 h-10 rounded-lg bg-pink-500/10 flex items-center justify-center">
+                        <i class="fas fa-laptop-code text-pink-400"></i>
+                    </div>
+                    <h2 class="text-3xl font-semibold">Code Examples</h2>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold mb-3 text-cyan-400">Complete Setup Example</h3>
+                    <p class="text-gray-300 mb-3">
+                        Here's how to set up AutomateCore in a .NET application:
+                    </p>
+                    <div class="code-block p-4 mb-4">
+                        <div class="text-gray-500">// Program.cs or Startup.cs</div>
+                        <div class="text-blue-300">var</div>
+                        <div class="text-gray-200">builder</div> = <div class="text-cyan-300">WebApplication</div>.<div
+                            class="text-yellow-300">CreateBuilder</div>(<div class="text-gray-200">args</div>);<br><br>
+                        <div class="text-gray-500">// Register services</div>
+                        <div class="text-gray-200">builder</div>.<div class="text-gray-200">Services</div>.<div
+                            class="text-yellow-300">AddAutomateCore</div>();<br>
+                        <div class="text-gray-200">builder</div>.<div class="text-gray-200">Services</div>.<div
+                            class="text-yellow-300">AddScheduledTask</div>&lt;<div class="text-cyan-300">CleanupTask
+                        </div>&gt;();<br><br>
+                        <div class="text-gray-500">// Configure scheduler from appsettings</div>
+                        <div class="text-gray-200">builder</div>.<div class="text-gray-200">Services</div>.<div
+                            class="text-yellow-300">Configure</div>&lt;<div class="text-cyan-300">SchedulerOptions</div>
+                        &gt;(<div class="text-gray-200">builder</div>.<div class="text-gray-200">Configuration</div>.
+                        <div class="text-yellow-300">GetSection</div>(<div class="text-green-400">"SchedulerSettings"
+                        </div>));<br><br>
+                        <div class="text-blue-300">var</div>
+                        <div class="text-gray-200">app</div> = <div class="text-gray-200">builder</div>.<div
+                            class="text-yellow-300">Build</div>();<br><br>
+                        <div class="text-gray-500">// Start scheduler</div>
+                        <div class="text-blue-300">var</div>
+                        <div class="text-gray-200">scheduler</div> = <div class="text-gray-200">app</div>.<div
+                            class="text-gray-200">Services</div>.<div class="text-yellow-300">GetRequiredService</div>
+                        &lt;<div class="text-cyan-300">ISchedulerEngine</div>&gt;();<br>
+                        <div class="text-gray-200">scheduler</div>.<div class="text-yellow-300">Start</div>();
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-4 mb-8">
+                    <div class="flex items-center text-purple-400 mb-2">
+                        <i class="fas fa-rocket mr-2"></i>
+                        <span class="font-medium">Quick Start</span>
+                    </div>
+                    <p class="text-gray-300 text-sm">
+                        For rapid development, use our NuGet package which includes templates and scaffolding:
+                    <div class="code-block p-2 mt-2 text-sm">
+                        <div class="text-gray-200">dotnet</div>
+                        <div class="text-gray-200">add</div>
+                        <div class="text-gray-200">package</div>
+                        <div class="text-green-400">AutomateCore</div>
+                    </div>
+                    </p>
+                </div>
+            </section>
+
+            <!-- API Reference Section -->
+            <section id="api-reference" class="glass-card p-8">
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="w-10 h-10 rounded-lg bg-red-500/10 flex items-center justify-center">
+                        <i class="fas fa-book text-red-400"></i>
+                    </div>
+                    <h2 class="text-3xl font-semibold">API Reference</h2>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left text-gray-400">
+                        <thead class="text-xs uppercase bg-slate-800/50 text-cyan-400">
+                            <tr>
+                                <th class="px-6 py-3">Class/Method</th>
+                                <th class="px-6 py-3">Description</th>
+                                <th class="px-6 py-3">Version</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-slate-700 hover:bg-slate-800/50">
+                                <td class="px-6 py-4 font-mono">SchedulerEngine.Start()</td>
+                                <td class="px-6 py-4">Begins execution of all registered tasks</td>
+                                <td class="px-6 py-4">v1.0+</td>
+                            </tr>
+                            <tr class="border-b border-slate-700 hover:bg-slate-800/50">
+                                <td class="px-6 py-4 font-mono">SchedulerEngine.StopAsync()</td>
+                                <td class="px-6 py-4">Gracefully stops all task execution</td>
+                                <td class="px-6 py-4">v1.2+</td>
+                            </tr>
+                            <tr class="border-b border-slate-700 hover:bg-slate-800/50">
+                                <td class="px-6 py-4 font-mono">SchedulerConfig.Validate()</td>
+                                <td class="px-6 py-4">Validates configuration values</td>
+                                <td class="px-6 py-4">v1.0+</td>
+                            </tr>
+                            <tr class="border-b border-slate-700 hover:bg-slate-800/50">
+                                <td class="px-6 py-4 font-mono">IScheduledTask.ExecuteAsync()</td>
+                                <td class="px-6 py-4">Method to implement for task logic</td>
+                                <td class="px-6 py-4">v1.0+</td>
+                            </tr>
+                            <tr class="border-b border-slate-700 hover:bg-slate-800/50">
+                                <td class="px-6 py-4 font-mono">TaskExtensions.WithRetry()</td>
+                                <td class="px-6 py-4">Adds retry behavior to tasks</td>
+                                <td class="px-6 py-4">v2.0+</td>
+                            </tr>
+                            <tr class="border-b border-slate-700 hover:bg-slate-800/50">
+                                <td class="px-6 py-4 font-mono">AIService.OptimizeSchedule()</td>
+                                <td class="px-6 py-4">AI-powered schedule optimization</td>
+                                <td class="px-6 py-4">v2.1+</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- FAQ Section -->
+            <section id="faqs" class="glass-card p-8">
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="w-10 h-10 rounded-lg bg-orange-500/10 flex items-center justify-center">
+                        <i class="fas fa-question-circle text-orange-400"></i>
+                    </div>
+                    <h2 class="text-3xl font-semibold">Frequently Asked Questions</h2>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="border-b border-slate-700 pb-4">
+                        <h3 class="text-lg font-medium text-cyan-400 mb-2">How do I handle errors in my tasks?</h3>
+                        <p class="text-gray-300">
+                            The SchedulerEngine automatically logs all exceptions. For custom error handling, wrap your
+                            task logic in try-catch blocks. You can also use the <span
+                                class="font-mono text-blue-400">WithRetry()</span> extension method to add retry
+                            behavior.
+                        </p>
+                    </div>
+
+                    <div class="border-b border-slate-700 pb-4">
+                        <h3 class="text-lg font-medium text-cyan-400 mb-2">Can I schedule a task to run every 15
+                            minutes?</h3>
+                        <p class="text-gray-300">
+                            Yes! Use the <span class="font-mono text-blue-400">Interval</span> schedule type with a
+                            TimeSpan of 15 minutes. Alternatively, configure an hourly schedule with specific minute
+                            marks (0, 15, 30, 45).
+                        </p>
+                    </div>
+
+                    <div class="border-b border-slate-700 pb-4">
+                        <h3 class="text-lg font-medium text-cyan-400 mb-2">Is there a way to monitor running tasks?</h3>
+                        <p class="text-gray-300">
+                            AutomateCore integrates with ASP.NET Core's health checks. Implement <span
+                                class="font-mono text-blue-400">IHealthCheck</span> to expose task status. You can also
+                            subscribe to engine events for real-time monitoring.
+                        </p>
+                    </div>
+
+                    <div class="pb-4">
+                        <h3 class="text-lg font-medium text-cyan-400 mb-2">How do I run tasks in a cluster environment?
+                        </h3>
+                        <p class="text-gray-300">
+                            For clustered deployments, use the <span
+                                class="font-mono text-blue-400">DistributedLock</span> feature to ensure tasks only run
+                            on one node. Configure your lock provider in the scheduler options.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Changelog Section -->
+            <section id="changelog" class="glass-card p-8">
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="w-10 h-10 rounded-lg bg-teal-500/10 flex items-center justify-center">
+                        <i class="fas fa-history text-teal-400"></i>
+                    </div>
+                    <h2 class="text-3xl font-semibold">Changelog</h2>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="pl-6 border-l-2 border-cyan-500/50">
+                        <div class="flex items-baseline">
+                            <h3 class="text-xl font-semibold">v2.1.0</h3>
+                            <span class="ml-2 text-xs text-gray-400">2023-11-15</span>
+                        </div>
+                        <ul class="mt-2 space-y-2 text-gray-300 text-sm list-disc list-inside">
+                            <li>Added support for cron expressions</li>
+                            <li>Improved distributed lock handling</li>
+                            <li>Added task execution metrics</li>
+                            <li>Integrated AI-powered optimizations</li>
+                        </ul>
+                    </div>
+
+                    <div class="pl-6 border-l-2 border-blue-500/50">
+                        <div class="flex items-baseline">
+                            <h3 class="text-xl font-semibold">v2.0.0</h3>
+                            <span class="ml-2 text-xs text-gray-400">2023-08-22</span>
+                        </div>
+                        <ul class="mt-2 space-y-2 text-gray-300 text-sm list-disc list-inside">
+                            <li>Full .NET 6+ support</li>
+                            <li>New fluent configuration API</li>
+                            <li>Health check integration</li>
+                            <li>Improved performance</li>
+                        </ul>
+                    </div>
+
+                    <div class="pl-6 border-l-2 border-purple-500/50">
+                        <div class="flex items-baseline">
+                            <h3 class="text-xl font-semibold">v1.5.0</h3>
+                            <span class="ml-2 text-xs text-gray-400">2023-05-10</span>
+                        </div>
+                        <ul class="mt-2 space-y-2 text-gray-300 text-sm list-disc list-inside">
+                            <li>Added appsettings.json support</li>
+                            <li>Improved error recovery</li>
+                            <li>Performance optimizations</li>
+                            <li>Added more schedule types</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <div
+        class="fixed bottom-0 left-0 right-0 bg-slate-900/95 backdrop-blur-md border-t border-slate-800 md:hidden z-50">
+        <div class="flex justify-around items-center py-3">
+            <a href="index.html"
+                class="flex flex-col items-center text-xs text-gray-400 hover:text-cyan-400 transition">
+                <i class="fas fa-home text-lg mb-1"></i>
+                <span>Home</span>
+            </a>
+            <a href="#overview" class="flex flex-col items-center text-xs text-gray-400 hover:text-cyan-400 transition">
+                <i class="fas fa-book text-lg mb-1"></i>
+                <span>Docs</span>
+            </a>
+            <a href="#examples" class="flex flex-col items-center text-xs text-gray-400 hover:text-pink-400 transition">
+                <i class="fas fa-code text-lg mb-1"></i>
+                <span>Examples</span>
+            </a>
+            <a href="#faqs" class="flex flex-col items-center text-xs text-gray-400 hover:text-orange-400 transition">
+                <i class="fas fa-question-circle text-lg mb-1"></i>
+                <span>FAQ</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Scroll to top -->
+    <button id="scrollTop"
+        class="scroll-top-btn p-3 rounded-full transition transform hover:scale-110 fixed bottom-6 right-6 z-40">
+        <i class="fas fa-arrow-up text-white"></i>
+    </button>
+
+    <script>
+        // Initialize 3D background
+        VANTA.NET({
+            el: "#vanta-bg",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            color: 0x00c6ff,
+            backgroundColor: 0x0f172a,
+            points: 12.00,
+            maxDistance: 22.00,
+            spacing: 18.00
+        });
+
+        // Scroll-to-top behavior
+        const scrollTopBtn = document.getElementById('scrollTop');
+        window.addEventListener('scroll', () => {
+            scrollTopBtn.style.display = window.scrollY > 200 ? 'block' : 'none';
+        });
+        scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+        // Active link highlighting
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('nav a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= (sectionTop - 300)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active-link');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active-link');
+                }
+            });
+        });
+
+        // AI Assistant Panel
+        const aiAssistant = document.getElementById('aiAssistant');
+        const aiPanel = document.getElementById('aiPanel');
+        const closeAI = document.getElementById('closeAI');
+        const tryAssistant = document.getElementById('tryAssistant');
+
+        aiAssistant.addEventListener('click', () => {
+            aiPanel.classList.remove('translate-y-10', 'opacity-0', 'pointer-events-none');
+            aiPanel.classList.add('translate-y-0', 'opacity-100', 'pointer-events-auto');
+        });
+
+        closeAI.addEventListener('click', () => {
+            aiPanel.classList.remove('translate-y-0', 'opacity-100', 'pointer-events-auto');
+            aiPanel.classList.add('translate-y-10', 'opacity-0', 'pointer-events-none');
+        });
+
+        tryAssistant.addEventListener('click', () => {
+            aiPanel.classList.remove('translate-y-10', 'opacity-0', 'pointer-events-none');
+            aiPanel.classList.add('translate-y-0', 'opacity-100', 'pointer-events-auto');
+        });
+
+        // Interactive Demo
+        const demoConfig = document.getElementById('demoConfig');
+        const demoLog = document.getElementById('demoLog');
+        const demoType = document.getElementById('demoType');
+        const runDemo = document.getElementById('runDemo');
+        const pauseDemo = document.getElementById('pauseDemo');
+        const resetDemo = document.getElementById('resetDemo');
+
+        let demoInterval;
+        let demoRunning = false;
+
+        const configTemplates = {
+            interval: {
+                taskName: "DataSync",
+                scheduleType: "Interval",
+                interval: "00:15:00",
+                enabled: true
+            },
+            daily: {
+                taskName: "DailyReport",
+                scheduleType: "Daily",
+                hour: 15,
+                minute: 30,
+                enabled: true
+            },
+            weekly: {
+                taskName: "WeeklyCleanup",
+                scheduleType: "Weekly",
+                days: "Monday,Friday",
+                hour: 2,
+                minute: 0,
+                enabled: true
+            },
+            hourly: {
+                taskName: "CacheRefresh",
+                scheduleType: "Hourly",
+                minute: 30,
+                enabled: true
+            }
+        };
+
+        demoType.addEventListener('change', (e) => {
+            const selectedType = e.target.value;
+            demoConfig.textContent = JSON.stringify(configTemplates[selectedType], null, 2);
+        });
+
+        runDemo.addEventListener('click', () => {
+            if (demoRunning) return;
+
+            demoRunning = true;
+            const selectedType = demoType.value;
+
+            // Clear previous logs
+            demoLog.innerHTML = '<div class="text-green-400">[INFO] Starting task execution</div>';
+
+            // Simulate task execution
+            demoInterval = setInterval(() => {
+                const now = new Date();
+                const timeStr = now.toLocaleTimeString();
+
+                const logEntry = document.createElement('div');
+                logEntry.className = 'text-cyan-400';
+                logEntry.textContent = `[EXEC] Task executed at ${timeStr}`;
+
+                demoLog.appendChild(logEntry);
+                demoLog.scrollTop = demoLog.scrollHeight;
+            }, 3000);
+        });
+
+        pauseDemo.addEventListener('click', () => {
+            if (!demoRunning) return;
+
+            clearInterval(demoInterval);
+            demoRunning = false;
+
+            const logEntry = document.createElement('div');
+            logEntry.className = 'text-yellow-400';
+            logEntry.textContent = '[INFO] Task execution paused';
+
+            demoLog.appendChild(logEntry);
+            demoLog.scrollTop = demoLog.scrollHeight;
+        });
+
+        resetDemo.addEventListener('click', () => {
+            clearInterval(demoInterval);
+            demoRunning = false;
+            demoLog.innerHTML = '<div class="text-green-400">[INFO] Task initialized</div><div class="text-cyan-400">[DEBUG] Next run at 15:30:00</div>';
+        });
+
+        // Search functionality
+        const docSearch = document.getElementById('docSearch');
+        const searchResults = document.getElementById('searchResults');
+
+        // Sample search data (in a real app, this would come from an API or index)
+        const searchData = [
+            { title: "SchedulerConfig", section: "scheduler-config", description: "Configuration class for scheduler settings" },
+            { title: "IScheduledTask", section: "task-interface", description: "Interface for implementing scheduled tasks" },
+            { title: "Quick Start", section: "quickstart", description: "Get up and running quickly with AutomateCore" },
+            { title: "Schedule Types", section: "schedule-types", description: "Different types of schedules available" },
+            { title: "API Reference", section: "api-reference", description: "Complete API documentation" },
+            { title: "Examples", section: "examples", description: "Code examples for common scenarios" }
+        ];
+
+        docSearch.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+
+            if (query.length < 2) {
+                searchResults.classList.add('hidden');
+                return;
+            }
+
+            const results = searchData.filter(item =>
+                item.title.toLowerCase().includes(query) ||
+                item.description.toLowerCase().includes(query)
+            );
+
+            if (results.length > 0) {
+                searchResults.innerHTML = results.map(result => `
+          <a href="#${result.section}" class="block px-4 py-2 hover:bg-slate-700 transition">
+            <div class="font-medium">${result.title}</div>
+            <div class="text-xs text-gray-400">${result.description}</div>
+          </a>
+        `).join('');
+                searchResults.classList.remove('hidden');
+            } else {
+                searchResults.innerHTML = '<div class="px-4 py-2 text-gray-400">No results found</div>';
+                searchResults.classList.remove('hidden');
+            }
+        });
+
+        // Close search results when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!docSearch.contains(e.target) && !searchResults.contains(e.target)) {
+                searchResults.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+
+</html>
