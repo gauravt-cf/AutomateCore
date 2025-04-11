@@ -251,7 +251,7 @@ public class CustomScheduleCalculator : IScheduleCalculator
 | Pause/Resume scheduled tasks at runtime       | ✅ Completed | In-memory toggle without restarting service |
 | Task execution history logging                | ✅ Completed | Useful for debugging and monitoring |
 | Graceful shutdown handling                    | ✅ Completed | Ensures tasks finish before exit |
-| Dry Run Mode  |  📝 Planned   | Simulate task execution without actually running the logic. Useful for testing changes before production deployment.|
+| Dry Run Mode  |   ✅ Completed   | Simulate task execution without actually running the logic. Useful for testing changes before production deployment.|
 
 ---
 
