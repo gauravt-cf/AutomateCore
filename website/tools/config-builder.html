@@ -7,11 +7,15 @@
     <title>AutomateCore :: Config Builder</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="../scripts/layout/jsLyaout.js?v=1.0.0"></script>
+    <link rel="stylesheet" href="../styles/web-style.css?v=1.0.2" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
     <style>
         body {
             background: linear-gradient(120deg, #f0f4ff, #ffffff);
         }
+
         .glass {
             background: rgba(255, 255, 255, 0.6);
             backdrop-filter: blur(8px);
@@ -29,8 +33,54 @@
             border: 1px solid #cbd5e1;
         }
 
-        .schedule-group {
-            display: none;
+        .select2-container .select2-selection--single {
+            height: 3rem;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.75rem;
+            border: 1px solid #cbd5e1;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            font-size: 0.95rem;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            color: #1e293b;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 100%;
+            right: 10px;
+        }
+
+        .select2-dropdown {
+            border-radius: 0.5rem;
+            border-color: #cbd5e1;
+            font-size: 0.95rem;
+        }
+
+        #copy-toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 9999;
+            background-color: #1e293b;
+            /* dark blue-gray */
+            color: #ffffff;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(20px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        #copy-toast.show {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
         }
     </style>
 </head>
@@ -38,63 +88,88 @@
 <body class="font-sans">
     <top-header-bar></top-header-bar>
     <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <h1 class="text-4xl font-extrabold text-center text-cyan-600 mb-12">
+        <h1 class="text-4xl font-extrabold text-center text-cyan-600 mb-12" data-aos="fade-up">
             ⚙️ AutomateCore Config Builder
         </h1>
 
-        <form id="config-form" class="glass p-8 rounded-3xl shadow-2xl space-y-8">
-            <div class="space-y-2">
-                <label for="scheduleType" class="block text-sm font-medium">Schedule Type</label>
-                <select id="scheduleType"
-                    class="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-cyan-500">
-                    <option value="">-- Select --</option>
-                    <option value="Daily">Daily</option>
-                    <option value="Weekly">Weekly</option>
-                    <option value="Once">Once</option>
-                    <option value="Cron">Cron</option>
-                </select>
+        <form id="config-form"
+            class="bg-white p-8 rounded-3xl shadow-2xl space-y-10 max-w-3xl mx-auto border border-gray-100"
+            data-aos="zoom-in">
+
+            <div class="text-center">
+                <h2 class="text-2xl font-bold text-gray-800">Schedule Configuration</h2>
+                <p class="text-sm text-gray-500 mt-1">Customize your scheduler options below</p>
             </div>
 
-            <!-- Common Fields -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 schedule-group" data-schedule="Daily Weekly Once Cron">
-                <div class="space-y-2">
-                    <label for="enabled" class="block text-sm font-medium">Enabled</label>
+            <div class="space-y-2">
+                <label for="scheduleType" class="block text-sm font-semibold text-gray-700">Schedule Type</label>
+                <div class="relative">
+                    <select id="scheduleType"
+                        class="w-full px-4 py-3 rounded-xl border border-gray-300 shadow-sm bg-white text-gray-800 appearance-none focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition duration-200">
+                        <option value="">-- Select Schedule Type --</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-6 hide" id="common-fields-div">
+                <div class="space-y-2 hide" id="div_enabled">
+                    <label for="enabled" class="block text-sm font-medium text-gray-700">Enabled</label>
                     <select id="enabled"
-                        class="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-cyan-500">
+                        class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-cyan-500 bg-white text-gray-800">
                         <option value="true">True</option>
                         <option value="false">False</option>
                     </select>
                 </div>
-
-                <div class="space-y-2">
-                    <label for="hour" class="block text-sm font-medium">Hour</label>
+                <div class="space-y-2 mt-2 hide" id="div_dryRun">
+                    <label for="drpDryRun" class="block text-sm font-medium text-gray-700">Dry Run</label>
+                    <select id="drpDryRun"
+                        class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-cyan-500 bg-white text-gray-800">
+                        <option value="true">True</option>
+                        <option value="false" selected>False</option>
+                    </select>
+                </div>
+                <div class="space-y-2 mt-2 hide" id="div_hour">
+                    <label for="hour" class="block text-sm font-medium text-gray-700">Hour</label>
                     <input type="number" id="hour"
-                        class="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                        class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-cyan-500 bg-white text-gray-800"
                         min="0" max="23" placeholder="e.g., 14" />
+                    <p class="text-red-500 text-sm mt-1 hidden" id="error-hour"></p>
                 </div>
 
-                <div class="space-y-2">
-                    <label for="minute" class="block text-sm font-medium">Minute</label>
+                <div class="space-y-2 mt-2 hide" id="div_minute">
+                    <label for="minute" class="block text-sm font-medium text-gray-700">Minute</label>
                     <input type="number" id="minute"
-                        class="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                        class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-cyan-500 bg-white text-gray-800"
                         min="0" max="59" placeholder="e.g., 30" />
+                    <p class="text-red-500 text-sm mt-1 hidden" id="error-minute"></p>
                 </div>
             </div>
 
-            <!-- Weekly Only -->
-            <div class="space-y-2 schedule-group" data-schedule="Weekly">
-                <label for="dayOfWeek" class="block text-sm font-medium">Day Of Week</label>
-                <input type="text" id="dayOfWeek"
-                    class="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-cyan-500"
-                    placeholder="e.g., Monday" />
+            <div class="space-y-2 hide" id="div_dayOfWeek">
+                <label for="dayOfWeek" class="block text-sm font-medium text-gray-700">Day Of Week</label>
+                <select id="dayOfWeek"
+                    class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-cyan-500 bg-white text-gray-800">
+                    <option value="Sunday" selected>Sunday</option>
+                    <option value="Monday">Monday</option>
+                    <option value="Tuesday">Tuesday</option>
+                    <option value="Wednesday">Wednesday</option>
+                    <option value="Thursday">Thursday</option>
+                    <option value="Friday">Friday</option>
+                    <option value="Saturday">Saturday</option>
+                </select>
             </div>
 
-            <!-- Once Only -->
-            <div class="space-y-2 schedule-group" data-schedule="Once">
-                <label for="dayOfMonth" class="block text-sm font-medium">Day Of Month</label>
-                <input type="number" id="dayOfMonth"
-                    class="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-cyan-500"
-                    min="1" max="31" placeholder="e.g., 15" />
+            <div class="space-y-2 hide" id="div_dayOfMonth">
+                <label for="dayOfMonth" class="block text-sm font-medium text-gray-700">Day Of Month</label>
+                <input type="text" id="dayOfMonth"
+                    class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-cyan-500 bg-white text-gray-800"
+                    placeholder="e.g., 15" />
+            </div>
+
+            <div id="error-banner"
+                class="hidden bg-red-100 border border-red-300 text-red-700 px-4 py-3 rounded-xl text-sm mb-4"
+                role="alert">
+                <span class="block sm:inline" id="error-banner-text"></span>
             </div>
 
             <div class="text-center pt-6">
@@ -105,7 +180,7 @@
             </div>
         </form>
 
-        <section class="mt-16">
+        <section id="config-section" class="mt-16 hidden" data-aos="fade-up">
             <h2 class="text-2xl font-bold mb-4 text-cyan-700">Generated .config</h2>
             <div class="bg-gray-100 p-6 rounded-xl border border-gray-300 overflow-x-auto">
                 <pre id="config-preview" class="text-gray-800 text-sm whitespace-pre-wrap break-words font-mono"></pre>
@@ -117,70 +192,21 @@
                 </button>
             </div>
         </section>
+
+        <div id="copy-toast"
+            class="fixed bottom-6 right-6 bg-cyan-600 text-white text-sm px-4 py-2 rounded-lg shadow-lg hidden z-50">
+            ✅ Config copied to clipboard!
+        </div>
     </main>
-
-    <script>
-        function toggleFields(scheduleType) {
-            $('.schedule-group').hide();
-            if (!scheduleType) return;
-
-            $(`.schedule-group`).each(function () {
-                const allowed = $(this).data('schedule');
-                if (allowed && allowed.split(' ').includes(scheduleType)) {
-                    $(this).show();
-                }
-            });
-        }
-
-        $('#scheduleType').on('change', function () {
-            toggleFields(this.value);
-        });
-
-        $('#generateConfig').on('click', function () {
-            const taskName = "MyTask"; // placeholder
-            const type = $('#scheduleType').val();
-            const enabled = $('#enabled').val();
-            const hour = $('#hour').val();
-            const minute = $('#minute').val();
-            const dayOfWeek = $('#dayOfWeek').val();
-            const dayOfMonth = $('#dayOfMonth').val();
-
-            let additional = '';
-            if (type === 'Weekly') {
-                additional += `\n    <dayOfWeek>${dayOfWeek}</dayOfWeek>`;
-            } else if (type === 'Once') {
-                additional += `\n    <dayOfMonth>${dayOfMonth}</dayOfMonth>`;
-            }
-
-            const config = `
-<task name="${taskName}">
-  <schedule>
-    <type>${type}</type>
-    <enabled>${enabled}</enabled>
-    <time>
-      <hour>${hour}</hour>
-      <minute>${minute}</minute>${additional}
-    </time>
-  </schedule>
-</task>`;
-
-            $('#config-preview').text(config.trim());
-        });
-
-        $('#copyConfig').on('click', function () {
-            const el = document.createElement('textarea');
-            el.value = $('#config-preview').text();
-            document.body.appendChild(el);
-            el.select();
-            document.execCommand('copy');
-            document.body.removeChild(el);
-            alert('.config copied to clipboard!');
-        });
-
-        $(document).ready(() => {
-            toggleFields('');
-        });
-    </script>
+    <button-scroll>
+    </button-scroll>
+    <!-- Footer -->
+    <automate-core-footer></automate-core-footer>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>AOS.init({ duration: 600, once: true });</script>
+    <script src="../scripts/jsGithub.js?v=1.2.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="../scripts/tools/jsConfigBuilder.js?v=1.2.0"></script>
 </body>
 
 </html>
