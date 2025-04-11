@@ -75,6 +75,11 @@ jobs:
         run: |
           find website/ -name '*.js' ! -path '*/scripts/*' -exec terser {} -c -m -o {} \;
 
+      - name: 🧹 Clean Up Sensitive/Dev Files
+        run: |
+          find website/ -name '*.map' -delete
+          rm -f website/.env website/README.md
+
       - name: ⚙️ Setup GitHub Pages
         uses: actions/configure-pages@v5
 
@@ -96,3 +101,4 @@ jobs:
 
       - name: ✅ Deployment Complete
         run: echo "Deployment to ${{ github.event.inputs.target_env || 'staging' }} complete at ${{ steps.deploy.outputs.page_url }}"
+      
