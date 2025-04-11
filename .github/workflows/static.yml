@@ -79,12 +79,11 @@ jobs:
         run: |
           find website/ -name '*.map' -delete
           rm -f website/.env website/README.md
-      
+
       - name: 📛 Disable Jekyll
-          run: |
-            touch website/.nojekyll
-        
-        
+        run: |
+          touch website/.nojekyll
+
       - name: ⚙️ Setup GitHub Pages
         uses: actions/configure-pages@v5
 
@@ -106,4 +105,3 @@ jobs:
 
       - name: ✅ Deployment Complete
         run: echo "Deployment to ${{ github.event.inputs.target_env || 'staging' }} complete at ${{ steps.deploy.outputs.page_url }}"
-      
