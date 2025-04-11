@@ -13,7 +13,7 @@
     <meta property="og:description" content="Explore all available tools in the AutomateCore suite." />
     <meta property="og:url" content="https://gauravt-cf.github.io/AutomateCore" />
     <meta property="og:type" content="website" />
-
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%2300c6ff'/><stop offset='100%' stop-color='%230072ff'/></linearGradient></defs><path fill='url(%23grad)' d='M50 15a35 35 0 1 0 0 70 35 35 0 0 0 0-70zm0 10a25 25 0 1 1 0 50 25 25 0 0 1 0-50zm-15 5a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm30 0a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm-22.5 20a7.5 7.5 0 1 0 0 15 7.5 7.5 0 0 0 0-15zm15 0a7.5 7.5 0 1 0 0 15 7.5 7.5 0 0 0 0-15z'/></svg>">
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="AutomateCore Tools" />
     <meta name="twitter:description" content="Explore AutomateCore tools and utilities." />
@@ -26,69 +26,182 @@
     <script src="../scripts/layout/jsLyaout.js?v=1.2.3"></script>
 
     <style>
+        :root {
+            --primary: #00c6ff;
+            --secondary: #0072ff;
+            --dark: #0f172a;
+            --light: #f8fafc;
+        }
+        
         body {
-            background-color: #ffffff;
-            color: #1e293b;
+            background: #f8fafc;
+            font-family: 'Inter', sans-serif;
         }
-
+        
+        .gradient-text {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
         .tool-card {
-            background-color: #f9fafb;
-            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+            background: white;
+            border: 1px solid rgba(0, 198, 255, 0.1);
         }
-
+        
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 198, 255, 0.1);
+            border-color: rgba(0, 198, 255, 0.3);
+        }
+        
         .gradient-btn {
-            background: linear-gradient(to right, #3b82f6, #06b6d4);
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            transition: all 0.3s ease;
         }
-
+        
         .gradient-btn:hover {
-            filter: brightness(1.1);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 198, 255, 0.3);
+        }
+        
+        .header-gradient {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+        }
+        
+        .tool-icon {
+            background: linear-gradient(135deg, rgba(0, 198, 255, 0.1) 0%, rgba(0, 114, 255, 0.1) 100%);
         }
     </style>
 </head>
 
-<body class="min-h-screen font-sans antialiased">
+<body class="text-gray-800">
+    <!-- Header -->
     <top-header-bar></top-header-bar>
-    <main class="max-w-6xl mx-auto px-6 py-16">
-        <h1 class="text-4xl font-extrabold text-center text-blue-600 mb-12" data-aos="fade-down">
-            🧰 AutomateCore Tools Dashboard
-        </h1>
 
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8" data-aos="fade-up">
-            <!-- Tool Card: Config Builder -->
-            <div class="tool-card p-6 rounded-xl shadow-md transition hover:shadow-lg hover:scale-[1.02]">
-                <h2 class="text-xl font-bold mb-2 text-blue-700">⚙️ Config Builder</h2>
-                <p class="mb-4 text-sm text-gray-700">Create and preview `.config` files for AutomateCore's task scheduler.</p>
-                <a data-page-url="tools/config-builder.html" class="gradient-btn text-white px-4 py-2 rounded-md text-sm inline-block">
-                    Launch Tool →
+    <!-- Hero Section -->
+    <section class="header-gradient text-white py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-8">
+                <div class="md:w-1/2">
+                    <h1 class="text-4xl font-extrabold mb-4" data-aos="fade-right">
+                        <span class="gradient-text">AutomateCore Tools</span>
+                    </h1>
+                    <p class="text-xl text-blue-100 mb-8" data-aos="fade-right" data-aos-delay="100">
+                        Essential utilities to configure, test and monitor your scheduled tasks
+                    </p>
+                </div>
+                
+                <div class="tool-icon p-8 rounded-xl" data-aos="zoom-in">
+                    <i class="fas fa-tools text-6xl gradient-text"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <!-- Tool Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="toolsContainer">
+            <!-- Config Builder -->
+            <div class="tool-card rounded-xl p-6" data-aos="fade-up">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center mr-4">
+                        <i class="fas fa-cog text-blue-600 text-xl"></i>
+                    </div>
+                    <h2 class="text-xl font-bold text-gray-800">Config Builder</h2>
+                </div>
+                <p class="text-gray-600 mb-4">Create and preview `.config` files for AutomateCore's task scheduler with a visual interface.</p>
+                <a data-page-url="tools/config-builder.html" class="gradient-btn text-white px-4 py-2 rounded-lg text-sm font-medium inline-flex items-center">
+                    <i class="fas fa-external-link-alt mr-2"></i> Launch Tool
                 </a>
             </div>
 
-            <!-- Tool Card: Log Viewer (Coming Soon) -->
-            <!-- <div class="tool-card p-6 rounded-xl shadow-md transition hover:shadow-lg hover:scale-[1.02]">
-                <h2 class="text-xl font-bold mb-2 text-blue-700">📄 Log Viewer <span class="text-xs text-yellow-500">(Coming Soon)</span></h2>
-                <p class="mb-4 text-sm text-gray-700">Browse and search execution logs from AutomateCore service runs.</p>
-                <button class="bg-gray-300 text-gray-700 px-4 py-2 rounded-md text-sm cursor-not-allowed" disabled>
-                    Coming Soon
+            <!-- Log Viewer (Coming Soon) -->
+            <div class="tool-card rounded-xl p-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 rounded-lg bg-purple-100 flex items-center justify-center mr-4">
+                        <i class="fas fa-scroll text-purple-600 text-xl"></i>
+                    </div>
+                    <h2 class="text-xl font-bold text-gray-800">Log Viewer <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full ml-2">Coming Soon</span></h2>
+                </div>
+                <p class="text-gray-600 mb-4">Browse and search execution logs from AutomateCore service runs with powerful filtering.</p>
+                <button class="bg-gray-200 text-gray-600 px-4 py-2 rounded-lg text-sm font-medium inline-flex items-center cursor-not-allowed">
+                    <i class="fas fa-clock mr-2"></i> Coming Soon
                 </button>
-            </div> -->
+            </div>
 
-            <!-- Tool Card: Dry Run Simulator -->
-            <!-- <div class="tool-card p-6 rounded-xl shadow-md transition hover:shadow-lg hover:scale-[1.02]">
-                <h2 class="text-xl font-bold mb-2 text-blue-700">🧪 Dry Run Simulator</h2>
-                <p class="mb-4 text-sm text-gray-700">Test how your config would behave without actual task execution.</p>
-                <a href="/AutomateCore/dry-run-simulator.html" class="gradient-btn text-white px-4 py-2 rounded-md text-sm inline-block">
-                    Launch Tool →
-                </a>
-            </div> -->
+            <!-- Dry Run Simulator (Coming Soon) -->
+            <div class="tool-card rounded-xl p-6" data-aos="fade-up" data-aos-delay="150">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 rounded-lg bg-green-100 flex items-center justify-center mr-4">
+                        <i class="fas fa-vial text-green-600 text-xl"></i>
+                    </div>
+                    <h2 class="text-xl font-bold text-gray-800">Dry Run Simulator <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full ml-2">Coming Soon</span></h2>
+                </div>
+                <p class="text-gray-600 mb-4">Test how your config would behave without actual task execution in a safe environment.</p>
+                <button class="bg-gray-200 text-gray-600 px-4 py-2 rounded-lg text-sm font-medium inline-flex items-center cursor-not-allowed">
+                    <i class="fas fa-clock mr-2"></i> Coming Soon
+                </button>
+            </div>
+
+            <!-- Task Explorer (Coming Soon) -->
+            <div class="tool-card rounded-xl p-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 rounded-lg bg-cyan-100 flex items-center justify-center mr-4">
+                        <i class="fas fa-search text-cyan-600 text-xl"></i>
+                    </div>
+                    <h2 class="text-xl font-bold text-gray-800">Task Explorer <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full ml-2">Coming Soon</span></h2>
+                </div>
+                <p class="text-gray-600 mb-4">Visualize and manage all your scheduled tasks in one comprehensive dashboard.</p>
+                <button class="bg-gray-200 text-gray-600 px-4 py-2 rounded-lg text-sm font-medium inline-flex items-center cursor-not-allowed">
+                    <i class="fas fa-clock mr-2"></i> Coming Soon
+                </button>
+            </div>
+
+            <!-- Performance Monitor (Coming Soon) -->
+            <div class="tool-card rounded-xl p-6" data-aos="fade-up" data-aos-delay="250">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 rounded-lg bg-red-100 flex items-center justify-center mr-4">
+                        <i class="fas fa-tachometer-alt text-red-600 text-xl"></i>
+                    </div>
+                    <h2 class="text-xl font-bold text-gray-800">Performance Monitor <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full ml-2">Coming Soon</span></h2>
+                </div>
+                <p class="text-gray-600 mb-4">Track resource usage and execution metrics for your scheduled tasks.</p>
+                <button class="bg-gray-200 text-gray-600 px-4 py-2 rounded-lg text-sm font-medium inline-flex items-center cursor-not-allowed">
+                    <i class="fas fa-clock mr-2"></i> Coming Soon
+                </button>
+            </div>
+
+            <!-- Config Validator (Coming Soon) -->
+            <div class="tool-card rounded-xl p-6" data-aos="fade-up" data-aos-delay="300">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 rounded-lg bg-indigo-100 flex items-center justify-center mr-4">
+                        <i class="fas fa-check-circle text-indigo-600 text-xl"></i>
+                    </div>
+                    <h2 class="text-xl font-bold text-gray-800">Config Validator <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full ml-2">Coming Soon</span></h2>
+                </div>
+                <p class="text-gray-600 mb-4">Validate your configuration files for errors before deployment.</p>
+                <button class="bg-gray-200 text-gray-600 px-4 py-2 rounded-lg text-sm font-medium inline-flex items-center cursor-not-allowed">
+                    <i class="fas fa-clock mr-2"></i> Coming Soon
+                </button>
+            </div>
         </div>
     </main>
 
+    <!-- Footer -->
     <automate-core-footer></automate-core-footer>
 
+    <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
     <script>
-        AOS.init({ once: true, duration: 700 });
+        AOS.init({
+            once: true,
+            duration: 800,
+            easing: 'ease-out-quart'
+        });
     </script>
 </body>
-
 </html>

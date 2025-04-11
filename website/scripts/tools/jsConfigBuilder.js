@@ -47,15 +47,17 @@ class configBuilder {
     }
     bindScheduleTypes(scheduleTypes) {
         if (Array.isArray(scheduleTypes) && scheduleTypes.length > 0) {
-            scheduleTypes.forEach(item => {
-                this.$schduleTypeDropdown.append(
-                    $('<option>', {
-                        value: item.value,
-                        text: item.label,
-                        'data-properties': JSON.stringify(item.properties)
-                    })
-                );
-            });
+            let options = scheduleTypes.map(item =>
+                $('<option>', {
+                    value: item.value,
+                    text: item.label,
+                    'data-properties': JSON.stringify(item.properties)
+                })
+            );
+            this.$schduleTypeDropdown.append(options);
+    
+            // Select first by default
+            this.$schduleTypeDropdown.val(scheduleTypes[0].value).trigger('change');
         } else {
             let option = `<option value="">-- Select Schedule Type --</option>`;
             this.$schduleTypeDropdown.html(option);

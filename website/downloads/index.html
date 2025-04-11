@@ -23,50 +23,151 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
-
-    <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
-    <script src="../scripts/layout/jsLyaout.js?v=1.0.0" defer></script>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><defs><linearGradient id=%22grad%22 x1=%220%%22 y1=%220%%22 x2=%22100%%22 y2=%22100%%22><stop offset=%220%%22 stop-color=%22%2300c6ff%22/><stop offset=%22100%%22 stop-color=%22%230072ff%22/></linearGradient></defs><path fill=%22url(%23grad)%22 d=%22M50 15a35 35 0 1 0 0 70 35 35 0 0 0 0-70zm0 10a25 25 0 1 1 0 50 25 25 0 0 1 0-50zm-15 5a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm30 0a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm-22.5 20a7.5 7.5 0 1 0 0 15 7.5 7.5 0 0 0 0-15zm15 0a7.5 7.5 0 1 0 0 15 7.5 7.5 0 0 0 0-15z%22/></svg>">
 
     <style>
+        :root {
+            --primary: #00c6ff;
+            --secondary: #0072ff;
+            --dark: #0f172a;
+            --light: #f8fafc;
+        }
+
         body {
-            background: linear-gradient(120deg, #f0f4ff, #ffffff);
+            background: #f8fafc;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
 
         .gradient-btn {
-            background: linear-gradient(to right, #3b82f6, #06b6d4);
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            transition: all 0.3s ease;
+        }
+
+        .gradient-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 198, 255, 0.3);
+        }
+
+        .search-box {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(0, 198, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .search-box:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 198, 255, 0.1);
+        }
+
+        .version-card {
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 198, 255, 0.1);
+            background: white;
+        }
+
+        .version-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 198, 255, 0.1);
+            border-color: rgba(0, 198, 255, 0.3);
+        }
+
+        .badge-latest {
+            background: linear-gradient(135deg, #00ff88, #00b8ba);
+            color: white;
+        }
+
+        .modal-overlay {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border: 1px solid rgba(0, 198, 255, 0.2);
+        }
+        
+        .header-gradient {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+        }
+        
+        .download-icon {
+            background: linear-gradient(135deg, rgba(0, 198, 255, 0.1) 0%, rgba(0, 114, 255, 0.1) 100%);
         }
     </style>
+    <script src="../scripts/layout/jsLyaout.js?v=1.0.2"></script>
 </head>
 
-<body class="text-gray-800 font-sans">
+<body class="text-gray-800">
     <!-- Header -->
     <top-header-bar></top-header-bar>
 
-    <!-- Main -->
-    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <section data-aos="fade-up">
-            <div class="text-center mb-10">
-                <h1 class="text-4xl font-extrabold text-indigo-700">
-                    <i class="fas fa-download mr-2"></i>Download AutomateCore DLLs
-                </h1>
-                <p class="text-lg text-gray-600 mt-2">All versions are production-ready and safe to use.</p>
+    <!-- Main Content -->
+    <main class="w-full">
+        <!-- Hero Section -->
+        <section class="header-gradient text-white py-16 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-8">
+                    <div class="md:w-1/2">
+                        <h1 class="text-4xl font-extrabold mb-4" data-aos="fade-right">
+                            <span class="gradient-text">Download AutomateCore</span>
+                        </h1>
+                        <p class="text-xl text-blue-100 mb-8" data-aos="fade-right" data-aos-delay="100">
+                            Get the latest production-ready versions of our powerful scheduler
+                        </p>
+                        
+                        <!-- Stats Bar -->
+                        <div class="flex flex-wrap gap-4 mb-8" data-aos="fade-right" data-aos-delay="200">
+                            <a href="https://www.nuget.org/packages/AutomateCore" target="_blank"
+                                class="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-lg hover:bg-white/20 transition">
+                                <img src="https://img.shields.io/nuget/v/AutomateCore?style=flat-square&color=ffffff&label=NuGet"
+                                    alt="NuGet Version">
+                            </a>
+                            <a href="https://github.com/gauravt-cf/AutomateCore" target="_blank"
+                                class="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-lg hover:bg-white/20 transition">
+                                <img src="https://img.shields.io/github/stars/gauravt-cf/AutomateCore?style=flat-square&color=ffffff&label=Stars"
+                                    alt="GitHub Stars">
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="download-icon p-8 rounded-xl" data-aos="zoom-in">
+                        <i class="fas fa-download text-6xl gradient-text"></i>
+                    </div>
+                </div>
             </div>
+        </section>
 
-            <!-- NuGet + GitHub Stars -->
-            <div class="flex justify-center items-center space-x-4 mb-8">
-                <a href="https://www.nuget.org/packages/AutomateCore" target="_blank">
-                    <img src="https://img.shields.io/nuget/v/AutomateCore?style=flat-square" alt="NuGet Version">
-                </a>
+        <!-- Search Section -->
+        <section class="bg-white py-8 shadow-sm">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-2xl mx-auto relative">
+                    <input type="text" id="searchInput" placeholder="Search versions..."
+                        class="search-box w-full px-5 py-3 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-200" 
+                        data-aos="fade-up" />
+                    <i class="fas fa-search absolute right-5 top-3.5 text-gray-400"></i>
+                </div>
             </div>
+        </section>
 
-            <!-- Search Input -->
-            <input type="text" id="searchInput" placeholder="Search version..."
-                class="w-full mb-6 p-3 border rounded-lg shadow-sm" />
-
-            <!-- Version Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Cards will be dynamically rendered from JS -->
+        <!-- Version Cards Section -->
+        <section class="py-12 px-4 sm:px-6 lg:px-8 bg-gray-50">
+            <div class="max-w-7xl mx-auto">
+                <h2 class="text-2xl font-bold text-gray-800 mb-8" data-aos="fade-up">Available Versions</h2>
+                
+                <!-- Version Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="versionsContainer">
+                    <!-- Cards will be dynamically rendered from JS -->
+                </div>
             </div>
         </section>
     </main>
@@ -78,12 +179,21 @@
     <automate-core-footer></automate-core-footer>
 
     <!-- Changelog Modal -->
-    <div id="changelogModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
-        <div class="bg-white p-6 rounded-xl shadow max-w-md w-full mx-4">
-            <h2 id="changelogTitle" class="text-xl font-bold mb-3 text-indigo-700"></h2>
-            <ul id="changelogContent" class="list-disc text-gray-700 text-sm pl-5 space-y-1"></ul>
-            <div class="text-right mt-4">
-                <button onclick="closeChangelog()" class="text-sm text-red-500 hover:underline">Close</button>
+    <div id="changelogModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 modal-overlay">
+        <div class="modal-content rounded-xl shadow-2xl max-w-md w-full p-6 relative">
+            <button onclick="closeChangelog()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+                <i class="fas fa-times"></i>
+            </button>
+            <h2 id="changelogTitle" class="text-2xl font-bold mb-4 gradient-text"></h2>
+            <div class="h-px bg-gradient-to-r from-transparent via-blue-200 to-transparent my-4"></div>
+            <ul id="changelogContent" class="space-y-3">
+                <!-- Content will be added dynamically -->
+            </ul>
+            <div class="mt-6 pt-4 border-t border-gray-100 flex justify-end">
+                <button onclick="closeChangelog()"
+                    class="px-4 py-2 text-sm font-medium text-blue-600 hover:text-blue-800 transition">
+                    Close
+                </button>
             </div>
         </div>
     </div>
@@ -91,32 +201,56 @@
     <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
     <script>
-        AOS.init({ once: true, duration: 800, easing: 'ease-in-out' });
+        AOS.init({
+            once: true,
+            duration: 800,
+            easing: 'ease-out-quart'
+        });
 
         const versions = [
             {
                 version: "v1.2.0",
                 latest: true,
-                changes: ["Introduced dry-run mode for safe schedule testing.", "Retry logic added with exponential backoff."],
-                path: "downloads/dlls/v1.2.0/AutomateCore.dll"
+                changes: [
+                    "Introduced dry-run mode for safe schedule testing",
+                    "Retry logic with exponential backoff",
+                    "Improved error logging",
+                    "Optimized memory usage",
+                    "Added health check endpoint"
+                ],
+                path: "downloads/dlls/v1.2.0/AutomateCore.dll",
+                date: "2023-11-15"
+            },
+            {
+                version: "v1.1.0",
+                changes: [
+                    "Added weekly scheduling support",
+                    "Improved configuration validation",
+                    "Enhanced logging capabilities",
+                    "Fixed timezone handling"
+                ],
+                path: "downloads/dlls/v1.1.0/AutomateCore.dll",
+                date: "2023-09-22"
             },
             {
                 version: "v1.0.0",
                 changes: [
-                    "Improved schedule type parsing.",
-                    "Introduced retry handling mechanism.",
-                    "Refactored internal task engine.",
-                    "Initial stable release.",
-                    "Basic daily/weekly scheduling.",
-                    "Simple config section-based structure."
+                    "Initial stable release",
+                    "Basic daily scheduling",
+                    "Simple config section-based structure",
+                    "Windows service integration",
+                    "Basic task execution engine"
                 ],
-                path: "downloads/dlls/v1.0.0/AutomateCore.dll"
+                path: "downloads/dlls/v1.0.0/AutomateCore.dll",
+                date: "2023-08-10"
             }
         ];
+
         function getBasePath() {
             const parts = window.location.pathname.split("/").filter(Boolean);
             return parts.length > 0 ? `/${parts[0]}` : "";
         }
+
         const basePath = getBasePath();
         const versionsWithResolvedPaths = versions.map(v => ({
             ...v,
@@ -124,45 +258,72 @@
         }));
 
         function renderCards() {
-            const container = document.querySelector('.grid');
+            const container = document.getElementById('versionsContainer');
 
-            versionsWithResolvedPaths.forEach(({ version, changes, path, latest }) => {
+            versionsWithResolvedPaths.forEach(({ version, changes, path, latest, date }) => {
                 const div = document.createElement('div');
-                div.className = "version-card bg-white rounded-2xl shadow-lg p-6 flex flex-col justify-between hover:shadow-xl transition";
+                div.className = "version-card rounded-xl p-6 flex flex-col justify-between";
+                div.setAttribute('data-version', version.toLowerCase());
+                div.setAttribute('data-aos', 'fade-up');
 
                 div.innerHTML = `
-      <div>
-        <h2 class="text-lg font-bold text-gray-800">
-          ${version} ${latest ? '<span class="text-xs bg-green-100 text-green-700 ml-2 px-2 py-1 rounded-full">Latest</span>' : ''}
-        </h2>
-        <ul class="list-disc ml-5 mt-2 text-sm text-gray-600">
-          ${changes.map(c => `<li>${c}</li>`).join('')}
-        </ul>
-      </div>
-      <div class="mt-4 flex justify-between items-center">
-        <button onclick="showChangelog('${version}')" class="text-sm text-indigo-500 underline">View Changelog</button>
-        <a href="${path}" class="inline-flex items-center px-4 py-2 text-sm font-semibold text-white bg-indigo-600 rounded-lg hover:bg-indigo-700">
-          <i class="fas fa-cloud-download-alt mr-2"></i>Download
-        </a>
-      </div>
-    `;
+                    <div>
+                        <div class="flex justify-between items-start mb-3">
+                            <h2 class="text-xl font-bold text-gray-800">
+                                ${version}
+                            </h2>
+                            ${latest ? '<span class="badge-latest text-xs font-semibold px-2.5 py-1 rounded-full">LATEST</span>' : ''}
+                        </div>
+                        <p class="text-sm text-gray-500 mb-4">Released on ${date}</p>
+                        <ul class="space-y-2 text-gray-600">
+                            ${changes.slice(0, 3).map(c => `
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-400 mt-1 mr-2 text-xs"></i>
+                                    <span>${c}</span>
+                                </li>
+                            `).join('')}
+                            ${changes.length > 3 ? `
+                                <li class="text-sm text-blue-500">
+                                    +${changes.length - 3} more improvements
+                                </li>
+                            ` : ''}
+                        </ul>
+                    </div>
+                    <div class="mt-6 flex justify-between items-center">
+                        <button onclick="showChangelog('${version}')" 
+                            class="text-sm font-medium text-blue-500 hover:text-blue-700 flex items-center transition">
+                            <i class="fas fa-list-ul mr-2"></i> Full changelog
+                        </button>
+                        <a href="${path}" 
+                            class="inline-flex items-center px-4 py-2 text-sm font-semibold text-white bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg hover:from-blue-600 hover:to-cyan-600 transition-all shadow-sm">
+                            <i class="fas fa-download mr-2"></i> Download
+                        </a>
+                    </div>
+                `;
 
                 container.appendChild(div);
             });
         }
 
-
         function showChangelog(version) {
             const entry = versions.find(v => v.version === version);
             if (!entry) return;
-            document.getElementById('changelogTitle').innerText = `Changelog - ${version}`;
+
+            document.getElementById('changelogTitle').innerText = `${version} Changelog`;
+
             const list = document.getElementById('changelogContent');
             list.innerHTML = '';
+
             entry.changes.forEach(item => {
                 const li = document.createElement('li');
-                li.innerText = item;
+                li.className = 'flex items-start';
+                li.innerHTML = `
+                    <i class="fas fa-chevron-right text-blue-400 mt-1 mr-3 text-xs"></i>
+                    <span class="flex-1">${item}</span>
+                `;
                 list.appendChild(li);
             });
+
             document.getElementById('changelogModal').classList.remove('hidden');
         }
 
@@ -173,11 +334,20 @@
         document.getElementById('searchInput').addEventListener('input', function () {
             const value = this.value.toLowerCase();
             document.querySelectorAll('.version-card').forEach(card => {
-                card.style.display = card.textContent.toLowerCase().includes(value) ? 'flex' : 'none';
+                const version = card.getAttribute('data-version');
+                card.style.display = version.includes(value) ? 'flex' : 'none';
             });
         });
 
-        renderCards();
+        // Close modal when clicking outside
+        document.getElementById('changelogModal').addEventListener('click', function (e) {
+            if (e.target === this) {
+                closeChangelog();
+            }
+        });
+
+        // Render cards when DOM is loaded
+        document.addEventListener('DOMContentLoaded', renderCards);
     </script>
 
     <script src="../scripts/jsGithub.js?v=1.02.2" defer></script>
