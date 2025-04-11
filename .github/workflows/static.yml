@@ -38,7 +38,7 @@ jobs:
       - name: 📤 Upload Static Files
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './docs'
+          path: './website'
 
       - name: 🚀 Deploy to GitHub Pages
         id: deploy
