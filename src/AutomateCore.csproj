@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup Label="Globals">
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+	  <TargetFramework>net48</TargetFramework>
+	  <AssemblyTitle>AutomateCore Scheduler</AssemblyTitle>
+	  <AssemblyProduct>AutomateCore</AssemblyProduct>
+	  <AssemblyVersion>1.0.1</AssemblyVersion>
+	  <AssemblyFileVersion>1.0.1</AssemblyFileVersion>
+	  <Authors>AutomateCore</Authors>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.ServiceProcess" />
+  </ItemGroup>
+
+</Project>
