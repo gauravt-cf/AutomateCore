@@ -1459,14 +1459,16 @@
             gyroControls: false,
             minHeight: 200.00,
             minWidth: 200.00,
-            scale: 1.00,
-            scaleMobile: 1.00,
-            color: 0x00c6ff,
-            backgroundColor: 0x0f172a,
-            points: 12.00,
-            maxDistance: 22.00,
-            spacing: 18.00
+            scale: 1.2,
+            scaleMobile: 1.0,
+            color: 0x00c6ff, // bright cyan for vibrant lines
+            backgroundColor: 0x0f172a, // slate-900 like Tailwind dark bg
+            points: 14.0, // slightly more points for density
+            maxDistance: 26.0, // more connected net movement
+            spacing: 17.0, // smoother grid layout
+            showDots: true
         });
+
 
         // Scroll-to-top behavior
         const scrollTopBtn = document.getElementById('scrollTop');
